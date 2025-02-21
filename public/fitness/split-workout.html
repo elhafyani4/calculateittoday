@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Split - Calculator Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            transition-duration: 300ms;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translatey(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+    <nav class="fixed w-full top-0 z-30 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center font-bold text-xl text-blue-600">
+                <i class="fa-solid fa-calculator mr-2"></i> Calculator Hub
+            </a>
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="#finance" class="hover:text-blue-500 transition-colors"><i
+                            class="fa-solid fa-hand-holding-dollar mr-1"></i> Finance</a></li>
+                <li><a href="/fitness" class="hover:text-green-500 transition-colors"><i
+                            class="fa-solid fa-heart-pulse mr-1"></i> Fitness & Health</a></li>
+                <li><a href="#math" class="hover:text-yellow-500 transition-colors"><i
+                            class="fa-solid fa-square-root-variable mr-1"></i> Math</a></li>
+                <li><a href="#utility" class="hover:text-purple-500 transition-colors"><i
+                            class="fa-solid fa-tools mr-1"></i> Utility</a></li>
+            </ul>
+            <button class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="pt-24">
+        <div id="calculator-section" class="px-4 py-20 mx-auto max-w-screen-lg">
+            <h1 class="text-3xl font-bold text-center mb-8">Fitness Calculator & Workout Split Suggestion</h1>
+
+
+            <!-- Workout Split Suggestions Section -->
+            <section id="workoutSplitOptionsSection" class="bg-white shadow-md rounded-lg p-6">
+                <h2 class="text-xl font-semibold mb-4 border-b pb-2">Workout Split Suggestion</h2>
+                <p class="mb-4 text-gray-700">Get personalized workout split suggestions based on your goals and experience
+                    level. Please provide your details to get started.</p>
+
+                <!-- Workout Split Options Form -->
+                <form id="workoutSplitOptionsForm" class="space-y-6">
+                    <!-- Goal Type Selection (Dropdown) -->
+                    <div>
+                        <label for="goalType" class="block mb-2 text-gray-700">Fitness Goal</label>
+                        <select id="goalType" name="goalType"
+                            class="w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Select Your Fitness Goal...</option>
+                            <option value="strength">Strength Training</option>
+                            <option value="weightloss">Weight Loss</option>
+                            <option value="athleticism">Athletic Performance Improvement</option>
+                            <option value="generalFitness">General Fitness & Wellness</option>
+                        </select>
+                    </div>
+
+                    <!-- Experience Level Selection (Dropdown) -->
+                    <div>
+                        <label for="experienceLevel" class="block mb-2 text-gray-700">Experience Level</label>
+                        <select id="experienceLevel" name="experienceLevel"
+                            class="w-full px-4 py-3 border rounded-md focus:ring-blue-500 focus:border-blue-500">
+                            <option value="">Select Your Experience Level...</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+
+                    <!-- Muscle Focus (Checkboxes) -->
+                    <div class="flex flex-col space-y-3">
+                        <label class="block mb-2 text-gray-700">Muscle Focus Areas (Optional - Check all that apply)</label>
+                        <div class="space-x-4">
+                            <label><input type="checkbox" name="muscleFocus[]" value="upperBody" class="mr-1"> Upper
+                                Body</label>
+                            <label><input type="checkbox" name="muscleFocus[]" value="lowerBody" class="mr-1"> Lower
+                                Body</label>
+                            <label><input type="checkbox" name="muscleFocus[]" value="core" class="mr-1"> Core</label>
+                            <label><input type="checkbox" name="muscleFocus[]" value="fullBody" class="mr-1"> Full
+                                Body</label>
+                        </div>
+                    </div>
+
+                    <!-- Additional Preferences (Textarea) -->
+                    <div>
+                        <label for="additionalPreferences" class="block mb-2 text-gray-700">Additional Preferences
+                            (Optional)</label>
+                        <textarea id="additionalPreferences" name="additionalPreferences" rows="3"
+                            placeholder="Any specific preferences or constraints?"
+                            class="w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500"></textarea>
+                    </div>
+
+                    <!-- Suggest Workout Split Button -->
+                    <button type="submit" id="suggestWorkoutSplitBtn"
+                        class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">
+                        Get My Workout Split
+                        <i class="fa-solid fa-dumbbell ml-1"></i>
+                    </button>
+
+                </form>
+
+
+                <!-- Display Suggested Workout Split (Initially Hidden) -->
+                <div id="workoutSplitOptionsDisplay" class="hidden mt-8 p-4 bg-gray-50 rounded-md shadow-inner">
+                    <h3 class="font-semibold mb-2">Suggested Workout Split:</h3>
+                    <p id="split-details"></p>
+
+                    <!-- Example Display Structure (Dynamically Generated) -->
+                    <div id="dynamicSplitOptionsContainer" class="mt-4">
+                        <!-- Dynamic content will be inserted here based on split suggestion logic -->
+                    </div>
+
+                </div>
+
+
+                <!-- Start Over Button (Initially Hidden, to appear after suggestion is generated) -->
+                <button onclick="resetWorkoutSplit()" id="startOverButton"
+                    class="hidden mt-8 block mx-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">
+                    Start Over
+                    <i class="fa-solid fa-repeat ml-1"></i>
+                </button>
+
+            </section>
+
+
+        </div> <!-- Container -->
+
+
+        <!-- Updated JavaScript Section to include Workout Split Suggestion Logic -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const suggestWorkoutSplitBtn = document.getElementById("suggestWorkoutSplit");
+                const startOverButton = document.querySelector("#start-over-btn");
+                const workoutSplitOptionsDisplay = document.querySelector("#workoutSplitOptions");
+
+                const exampleSplits = {
+                    weightlossBeginner: [
+                        { day: 'Day 1', exercises: ['Jumping Jacks', 'High Knees', 'Step-Ups'] },
+                        { day: 'Day 2', exercises: ['Body Weight Squats', 'Push-Ups (Modified)', 'Leg Lifts'] },
+                        { day: 'Rest Day' }
+                    ],
+                    weightlossIntermediate: [
+                        { day: 'Day 1', exercises: ['Burpees', 'Mountain Climbers', 'Lunges'] },
+                        { day: 'Day 2', exercises: ['HIIT Circuit (Cardio & Strength)', 'Cycling', 'Jump Rope'] },
+                        { day: 'Rest Day' }
+                    ],
+                    athleticismBeginner: [
+                        { day: 'Day 1', exercises: ['Sprint Drills', 'Agility Ladder Work', 'Short Sprints'] },
+                        { day: 'Day 2', exercises: ['Shuttle Runs', 'Balance Beam Walks', 'Plyometric Jumps'] },
+                        { day: 'Rest Day' }
+                    ],
+                    athleticismIntermediate: [
+                        { day: 'Day 1', exercises: ['Speed Drills (40m)', 'Depth Jumping', 'Lateral Bounds'] },
+                        { day: 'Day 2', exercises: ['Power Snatching', 'Medicine Ball Throws', 'Tire Flips/Slams'] },
+                        { day: 'Rest Day' }
+                    ],
+                    generalFitnessBeginner: [
+                        { day: 'Full Body', exercises: ['Cardio (Walking/Jogging)', 'Strength Circuit (Body Weight Exercises)'] },
+                        { day: 'Rest Day' }
+                    ],
+                    generalFitnessIntermediate: [
+                        { day: 'Upper & Lower Split', exercises: ['Circuit Upper Body', 'Cardio Walk/Run', 'Lower Body Strength'] },
+                        { day: 'Full Body', exercises: ['HIIT Session', 'Core Workout', 'Flexibility Stretching'] },
+                        { day: 'Rest Day' }
+                    ]
+                };
+
+                function getSuggestedSplit(goal, experienceLevel) {
+                    let splitKey = `${goal}${experienceLevel.charAt(0).toUpperCase() + experienceLevel.slice(1)}`
+                    return exampleSplits[splitKey] || null;
+                }
+
+                suggestWorkoutSplitBtn.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const goalTypeValue = document.getElementById('goalType').value.toLowerCase().replace(/ /g, '');
+                    const experienceLevelValue = document.getElementById('experienceLevel').value;
+
+                    if (!goalTypeValue || !experienceLevelValue) {
+                        alert('Please select both a fitness goal and an experience level to get a workout split suggestion.');
+                        return;
+                    }
+
+                    let selectedSplit = getSuggestedSplit(goalTypeValue, experienceLevelValue);
+
+                    if (selectedSplit && Array.isArray(selectedSplit)) {
+                        startOverButton.classList.remove('hidden');
+                        workoutSplitOptionsDisplay.classList.remove('hidden');
+
+                        document.getElementById("dynamicSplitOptionsContainer").innerHTML = "";
+                        for (let i = 0; i < selectedSplit.length; i++) {
+                            let dayDiv = document.createElement("div");
+                            if (i % 3 === 2) { // Rest Day
+                                dayDiv.innerHTML = `<p class="text-lg font-semibold mt-4">${selectedSplit[i].day}</p>`;
+                                dayDiv.classList.add('bg-gray-100', 'rounded-md', 'py-2');
+                            } else {
+                                let exerciseList = selectedSplit[i].exercises.join('<br>');
+                                dayDiv.innerHTML = `<p class="text-lg font-semibold mt-4">${selectedSplit[i].day}</p><ul class="ml-5"><li>${exerciseList.replace(/<br>/g, '</li><li>')}</li></ul>`;
+                                dayDiv.classList.add('bg-white', 'rounded-md', 'py-2');
+                            }
+                            document.getElementById("dynamicSplitOptionsContainer").appendChild(dayDiv);
+                        }
+
+                    } else {
+                        alert('No workout split suggestion found for the selected options. Please try different criteria.');
+                        return;
+                    }
+
+                });
+
+                function resetWorkoutSplit() {
+                    startOverButton.classList.add('hidden');
+                    workoutSplitOptionsDisplay.classList.add('hidden');
+
+                    document.getElementById("goalType").value = "";
+                    document.getElementById("experienceLevel").value = "";
+                    document.getElementById("dynamicSplitOptionsContainer").innerHTML = "";
+
+                    Array.from(document.querySelectorAll("#workoutSplitOptionsForm input[type=checkbox]:checked")).forEach(el => el.checked = false);
+
+                }
+
+                startOverButton.addEventListener('click', resetWorkoutSplit);
+            });
+        </script>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="text-xl font-semibold mb-4">About Us</h4>
+                <p class="text-gray-300">Welcome to the most comprehensive collection of calculators online. Our mission
+                    is to simplify complex calculations and provide users with tools for financial planning, health
+                    monitoring, math operations, and more.</p>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#calculator-links" class="hover:text-blue-500 transition-colors">Calculator
+                            Categories</a></li>
+                    <li><a href="#" onclick="showCalculator('investment')"
+                            class="hover:text-blue-500 transition-colors">Investment Calculator</a></li>
+                    <li><a href="#contact-section" class="hover:text-blue-500 transition-colors">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Contact Us</h4>
+                <p class="text-gray-300 mb-2"><i class="fa-solid fa-envelope mr-1"></i> contact@calculatorwebsite.com
+                </p>
+                <p class="text-gray-300"><i class="fa-solid fa-phone mr-1"></i> +1 (555) 123-4567</p>
+
+                <!-- Social Icons -->
+                <div class="flex space-x-4 mt-8 justify-center">
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-facebook-square text-white hover:text-blue-500 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-twitter-square text-white hover:text-sky-400 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-instagram-square text-white hover:text-pink-500 transition-colors"></i></a>
+                </div>
+            </div>
+
+        </div> <!-- Grid Container -->
+        <div class="mt-8 border-t border-gray-700 pt-4 text-center">
+            <p class="text-gray-400">© 2024 Calculator Website. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

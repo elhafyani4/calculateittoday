@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Hub - Your Personal Financial & Utility Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            transition-duration: 300ms;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translatey(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+    <nav class="fixed w-full top-0 z-30 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center font-bold text-xl text-blue-600">
+                <i class="fa-solid fa-calculator mr-2"></i> Calculator Hub
+            </a>
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="#finance" class="hover:text-blue-500 transition-colors"><i
+                            class="fa-solid fa-hand-holding-dollar mr-1"></i> Finance</a></li>
+                <li><a href="/fitness" class="hover:text-green-500 transition-colors"><i
+                            class="fa-solid fa-heart-pulse mr-1"></i> Fitness & Health</a></li>
+                <li><a href="#math" class="hover:text-yellow-500 transition-colors"><i
+                            class="fa-solid fa-square-root-variable mr-1"></i> Math</a></li>
+                <li><a href="#utility" class="hover:text-purple-500 transition-colors"><i
+                            class="fa-solid fa-tools mr-1"></i> Utility</a></li>
+            </ul>
+            <button class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section id="hero" class="relative flex items-center justify-center bg-cover bg-center"
+        style="background-image: url('https://picsum.photos/1920/1080?calculator=hero'); height: 40vh;">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h1 class="text-white font-bold text-4xl md:text-6xl mb-4 animate-fade-in">Welcome to Calculator Hub</h1>
+            <p class="text-gray-200 text-lg md:text-xl mb-8 opacity-90 animate-slide-up delay-200">Your go-to platform
+                for all your calculation needs.</p>
+        </div>
+    </section>
+
+    <section id="finance" class="py-24 bg-blue-50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-12 text-gray-800"><i class="fa-solid fa-hand-holding-dollar mr-2"></i>
+                Finance Calculators</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-lg mx-auto">
+                <!-- Simple Interest -->
+                <div class="bg-white p-6 rounded-xl shadow-md hover:bg-green-50 calculator-card transition-transform duration-300 transform translate-y-0"
+                    style="animation-delay: 1s;">
+                    <i class="fa-solid fa-percent text-blue-500 block mb-4"></i>
+                    <h3 class="font-semibold text-lg mb-2">Simple Interest</h3>
+                    <form id="simple-interest-form">
+                        <div class="mb-3"><label for="principal"
+                                class="block text-sm font-medium text-gray-700">Principal Amount:</label><input
+                                type="number" id="principal" placeholder="Enter principal amount"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="rate" class="block text-sm font-medium text-gray-700">Rate (in
+                                %):</label><input type="number" id="rate" placeholder="Enter rate in %"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="time" class="block text-sm font-medium text-gray-700">Time
+                                (years):</label><input type="number" id="time" placeholder="Enter time in years"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <button type="submit"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">Calculate</button>
+                    </form>
+                    <p id="simple-interest-result" class="mt-4 text-red-600"></p>
+                </div>
+
+                <!-- Compound Interest -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow-md hover:bg-blue-50 calculator-card transition-transform duration-300 transform translate-y-0">
+                    <i class="fa-solid fa-chart-line text-green-500 block mb-4"></i>
+                    <h3 class="font-semibold text-lg mb-2">Compound Interest</h3>
+                    <form id="compound-interest-form">
+                        <div class="mb-3"><label for="principal-ci"
+                                class="block text-sm font-medium text-gray-700">Principal Amount:</label><input
+                                type="number" id="principal-ci" placeholder="Enter principal amount"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="rate-ci" class="block text-sm font-medium text-gray-700">Rate (in
+                                %):</label><input type="number" id="rate-ci" placeholder="Enter rate in %"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="time-ci-years"
+                                class="block text-sm font-medium text-gray-700">Time (years):</label><input
+                                type="number" id="time-ci-years" placeholder="Enter time in years"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="compound-freq"
+                                class="block text-sm font-medium text-gray-700">Compounded (annually,
+                                semi-annually):</label><select id="compound-freq"
+                                placeholder="Select compounding frequency"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <option value="annually">Annually</option>
+                                <option value="semi-annually">Semi-Annually</option>
+                            </select></div>
+                        <button type="submit"
+                            class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">Calculate</button>
+                    </form>
+                    <p id="compound-interest-result" class="mt-4 text-red-600"></p>
+                </div>
+
+                <!-- Loan EMI Calculator -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow-md hover:bg-blue-50 calculator-card transition-transform duration-300 transform translate-y-0">
+                    <i class="fa-solid fa-house-chimney-user text-purple-500 block mb-4"></i>
+                    <h3 class="font-semibold text-lg mb-2">Loan EMI Calculator</h3>
+                    <form id="emi-form">
+                        <div class="mb-3"><label for="loan-principal"
+                                class="block text-sm font-medium text-gray-700">Loan Amount:</label><input type="number"
+                                id="loan-principal" placeholder="Enter loan amount"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="interest-rate-loan"
+                                class="block text-sm font-medium text-gray-700">Interest Rate (in %):</label><input
+                                type="number" id="interest-rate-loan" placeholder="Enter interest rate in %"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="loan-time-years"
+                                class="block text-sm font-medium text-gray-700">Loan Term (years):</label><input
+                                type="number" id="loan-time-years" placeholder="Enter loan term in years"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <button type="submit"
+                            class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">Calculate
+                            EMI</button>
+                    </form>
+                    <p id="emi-result" class="mt-4 text-red-600"></p>
+                </div>
+
+                <!-- Currency Converter -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow-md hover:bg-blue-50 calculator-card transition-transform duration-300 transform translate-y-0">
+                    <i class="fa-solid fa-sack-dollar text-yellow-500 block mb-4"></i>
+                    <h3 class="font-semibold text-lg mb-2">Currency Converter</h3>
+                    <form id="currency-converter-form">
+                        <div class="mb-3"><label for="amount-to-convert"
+                                class="block text-sm font-medium text-gray-700">Amount:</label><input type="number"
+                                id="amount-to-convert" placeholder="Enter amount to convert"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="currency-from"
+                                class="block text-sm font-medium text-gray-700">From Currency:</label><select
+                                id="currency-from" placeholder="Select currency to convert from"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                                <option value="GBP">GBP</option>
+                            </select></div>
+                        <div class="mb-3"><label for="currency-to" class="block text-sm font-medium text-gray-700">To
+                                Currency:</label><select id="currency-to" placeholder="Select currency to convert to"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                                <option value="GBP">GBP</option>
+                            </select></div>
+                        <button type="submit"
+                            class="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">Convert
+                            Currency</button>
+                    </form>
+                    <p id="currency-result" class="mt-4 text-red-600"></p>
+                </div>
+
+    </section>
+
+    <section id="calculator-links" class="py-24 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Calculator Categories</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <!-- Financial Calculators Card -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow-md hover:bg-blue-50 transition-transform duration-300 transform translate-y-0">
+                    <h3 class="font-semibold text-lg mb-4"><i class="fa-solid fa-chart-line mr-2 text-blue-500"></i>
+                        Financial Calculators</h3>
+                    <ul class="list-disc list-inside space-y-2 text-sm">
+                        <li><a href="/finance/amortization"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Amortization Calculator</a>
+                        </li>
+                        <li><a href="/finance/auto-loan-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Auto Loan Calculator</a>
+                        </li>
+                        <li><a href="/finance/compound-interest-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Compound Interest
+                                Calculator</a></li>
+                        <li><a href="/finance-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Finance Calculator</a></li>
+                        <li><a href="/income-tax-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Income Tax Calculator</a>
+                        </li>
+                        <li><a href="/inflation-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Inflation Calculator</a>
+                        </li>
+                        <li><a href="/interest-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Interest Calculator</a></li>
+                        <li><a href="/loan-calculator" class="text-blue-600 hover:text-blue-800 transition-colors">Loan
+                                Calculator</a></li>
+                        <li><a href="/mortgage-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Mortgage Calculator</a></li>
+                        <li><a href="/retirement-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Retirement Calculator</a>
+                        </li>
+                        <li><a href="/sales-tax-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Sales Tax Calculator</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Fitness & Health Calculators Card -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow-md hover:bg-green-50 transition-transform duration-300 transform translate-y-0">
+                    <h3 class="font-semibold text-lg mb-4"><i class="fa-solid fa-heart-pulse mr-2 text-red-500"></i>
+                        Fitness & Health Calculators</h3>
+                    <ul class="list-disc list-inside space-y-2 text-sm">
+                        <li><a href="/bmi-calculator" class="text-blue-600 hover:text-blue-800 transition-colors">BMI
+                                Calculator</a></li>
+                        <li><a href="/body-fat-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Body Fat Calculator</a></li>
+                        <li><a href="/bmr-calculator" class="text-blue-600 hover:text-blue-800 transition-colors">BMR
+                                Calculator</a></li>
+                        <li><a href="/fitness/calorie-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Calorie Calculator</a></li>
+                        <li><a href="/due-date-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Due Date Calculator</a></li>
+                        <li><a href="/pace-calculator" class="text-blue-600 hover:text-blue-800 transition-colors">Pace
+                                Calculator</a></li>
+                        <li><a href="/pregnancy-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Pregnancy Due Date
+                                Calculator</a></li>
+                    </ul>
+                </div>
+
+                <!-- Math Calculators Card -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow-md hover:bg-yellow-50 transition-transform duration-300 transform translate-y-0">
+                    <h3 class="font-semibold text-lg mb-4"><i class="fa-solid fa-calculator mr-2 text-orange-500"></i>
+                        Math Calculators</h3>
+                    <ul class="list-disc list-inside space-y-2 text-sm">
+                        <li><a href="/fraction-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Fraction Calculator</a></li>
+                        <li><a href="/percentage-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Percentage Calculator</a>
+                        </li>
+                        <li><a href="/random-number-generator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Random Number Generator</a>
+                        </li>
+                        <li><a href="/scientific-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Scientific Calculator</a>
+                        </li>
+                        <li><a href="/standard-deviation-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Standard Deviation
+                                Calculator</a></li>
+                        <li><a href="/triangle-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Triangle Area & Perimeter
+                                Calculator</a></li>
+                    </ul>
+                </div>
+
+                <!-- Other Calculators Card -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow-md hover:bg-gray-50 transition-transform duration-300 transform translate-y-0">
+                    <h3 class="font-semibold text-lg mb-4"><i class="fa-solid fa-gear mr-2 text-purple-500"></i> Other
+                        Calculators</h3>
+                    <ul class="list-disc list-inside space-y-2 text-sm">
+                        <li><a href="/age-calculator" class="text-blue-600 hover:text-blue-800 transition-colors">Age
+                                Calculator</a></li>
+                        <li><a href="/concrete-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Concrete Volume
+                                Calculator</a></li>
+                        <li><a href="/date-calculator" class="text-blue-600 hover:text-blue-800 transition-colors">Date
+                                Difference & Adder</a></li>
+                        <li><a href="/gpa-calculator" class="text-blue-600 hover:text-blue-800 transition-colors">GPA
+                                Calculator</a></li>
+                        <li><a href="/grade-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Letter Grade Converter</a>
+                        </li>
+                        <li><a href="/hours-calculator" class="text-blue-600 hover:text-blue-800 transition-colors">Time
+                                & Hours Calculator</a></li>
+                        <li><a href="/password-generator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Password Generator Tool</a>
+                        </li>
+                        <li><a href="/time-zone-calculator"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Time Zone Converter</a></li>
+                    </ul>
+                </div>
+
+            </div> <!-- End of Grid -->
+        </div> <!-- Container -->
+    </section>
+
+    <!-- Financial Planning Section -->
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="text-xl font-semibold mb-4">About Us</h4>
+                <p class="text-gray-300">Welcome to the most comprehensive collection of calculators online. Our mission
+                    is to simplify complex calculations and provide users with tools for financial planning, health
+                    monitoring, math operations, and more.</p>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#calculator-links" class="hover:text-blue-500 transition-colors">Calculator
+                            Categories</a></li>
+                    <li><a href="#" onclick="showCalculator('investment')"
+                            class="hover:text-blue-500 transition-colors">Investment Calculator</a></li>
+                    <li><a href="#contact-section" class="hover:text-blue-500 transition-colors">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Contact Us</h4>
+                <p class="text-gray-300 mb-2"><i class="fa-solid fa-envelope mr-1"></i> contact@calculatorwebsite.com
+                </p>
+                <p class="text-gray-300"><i class="fa-solid fa-phone mr-1"></i> +1 (555) 123-4567</p>
+
+                <!-- Social Icons -->
+                <div class="flex space-x-4 mt-8 justify-center">
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-facebook-square text-white hover:text-blue-500 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-twitter-square text-white hover:text-sky-400 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-instagram-square text-white hover:text-pink-500 transition-colors"></i></a>
+                </div>
+            </div>
+
+        </div> <!-- Grid Container -->
+        <div class="mt-8 border-t border-gray-700 pt-4 text-center">
+            <p class="text-gray-400">© 2024 Calculator Website. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    </main>
+</body>
+
+</html>

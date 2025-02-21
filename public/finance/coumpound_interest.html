@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compounding Growth - Compound Interest Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <style>body { font-family: 'Poppins', sans-serif; }</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+<header class="sticky top-0 z-50 bg-white shadow-md border-b border-gray-200 py-4 md:py-6">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+        <a href="/" class="font-bold text-xl md:text-2xl text-blue-700 hover:text-blue-900 transition-colors">Finance Tools</a>
+        <nav class="hidden md:flex space-x-8">
+            <a href="#compound-interest" class="hover:text-blue-500 transition-colors">Compound Interest</a>
+            <a href="#loan-calculator-link" onclick="showCalculator('autoLoan')" class="hover:text-blue-500 transition-colors">Auto Loan Calculator</a>
+        </nav>
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-gray-700 hover:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md p-1.5 inline-flex items-center justify-center">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu (Hidden by Default) -->
+    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-md border-t border-gray-200 py-4 px-6">
+        <nav class="flex flex-col space-y-3 text-center mt-2">
+            <a href="#compound-interest" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.querySelector('#autoLoanFormContainer').style.display = 'none'; document.querySelector('#loanOutputAuto').style.display = 'none'; document.getElementById('compoundInterestCalculatorSection').scrollIntoView({ behavior: 'smooth' });" class="hover:text-blue-500 transition-colors block py-1">Compound Interest</a>
+            <a href="#auto-loan-calculator-link" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.querySelector('#loanOutputAuto').style.display = 'none'; document.querySelector('#compoundInterestFormContainer').style.display = 'none'; showCalculator('autoLoan');" class="hover:text-blue-500 transition-colors block py-1">Auto Loan Calculator</a>
+        </nav>
+    </div>
+</header>
+
+<div id="hero-section" class="bg-gradient-to-br from-indigo-200 to-cyan-200 py-32 md:py-48 text-center relative overflow-hidden">
+    <div class="container mx-auto px-6 relative z-10">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6">Calculate Your Future Wealth</h1>
+        <p class="text-lg md:text-xl text-gray-700 mb-8">Grow your investments with the power of compounding interest. Understand how small contributions can lead to significant growth over time.</p>
+    </div>
+
+    <!-- Background Overlay (Subtle) -->
+    <div class="absolute inset-0 bg-indigo-100 opacity-20 pointer-events-none"></div>
+</div>
+
+
+<section id="compound-interest" class="py-24">
+    <div class="container mx-auto px-6">
+
+        <h2 class="text-3xl md:text-5xl font-bold text-center mb-16">Compound Interest Calculator</h2>
+
+        <div id="compoundInterestFormContainer">
+            <form id="compoundInterestCalculator" class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-md space-y-6">
+
+                <div>
+                    <label for="principalAmountCI" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Principal Amount ($)</label>
+                    <input type="number" id="principalAmountCI" placeholder="$1,000.00" min="0"
+                           class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           required>
+                </div>
+
+                <div>
+                    <label for="interestRateCI" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Annual Interest Rate (%)</label>
+                    <input type="number" id="interestRateCI" placeholder="5.0%" step="any" min="0"
+                           class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           required>
+                </div>
+
+                <div>
+                    <label for="compoundingFrequency" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Compounding Frequency</label>
+                    <select id="compoundingFrequencyCI" class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        <option value="annually">Annually</option>
+                        <option value="semi-annually">Semi-Annually (Every 6 Months)</option>
+                        <option selected value="quarterly">Quarterly (Every 3 Months)</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="investmentPeriodCI" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Investment Period (Years)</label>
+                    <input type="number" id="investmentPeriodCI" placeholder="10 years" min="1"
+                           class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           required>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 text-center">Calculate Future Value</button>
+            </form>
+        </div>
+
+         <div id="compoundInterestOutput" class="mt-12 hidden">
+            <h2 class="text-xl font-semibold mb-4">Future Investment Summary</h2>
+            <p><strong>Initial Principal:</strong> <span id="principalAmountCIO">$0.00</span></p>
+            <p><strong>Annual Interest Rate:</strong> <span id="interestRateCIO">% p.a.</span></p>
+            <p><strong>Fund Growth Period:</strong> <span id="investmentPeriodCIO">Years</span></p>
+            <p><strong>Future Value (Total Investment):</strong> <span class="text-green-700 font-semibold"><i class="fa-solid fa-arrow-trend-up mr-1"></i> <span id="futureValueCI">$0.00</span></span></p>
+             <div class="mt-6 p-4 bg-gray-50 rounded-md border-l-4 border-green-500">
+                <h3 class="text-lg font-semibold mb-2">Growth Breakdown:</h3>
+                 <ul class="space-y-1.5">
+                    <li><i class="fa-solid fa-arrow-up-right-dots mr-2 text-blue-600"></i> Interest Earned: <span id="interestEarnedCI">$0.00</span></li>
+                     <li><i class="fa-regular fa-money-bill-alt mr-2 text-green-500"></i> Total Investment (Principal + Interest): <span id="totalInvestmentCIO">$0.00</span></li>
+                 </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<script>
+document.getElementById('compoundInterestCalculator').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const principalAmount = parseFloat(document.getElementById('principalAmountCI').value);
+    const interestRatePercent = parseFloat(document.getElementById('interestRateCI').value);
+    const investmentPeriodYears = parseInt(document.getElementById('investmentPeriodCI').value);
+
+    if (isNaN(principalAmount) || isNaN(interestRatePercent) || isNaN(investmentPeriodYears)) {
+        alert("Please fill out all required fields correctly.");
+        return;
+    }
+
+    let compoundingFrequencyStr = document.getElementById('compoundingFrequencyCI').value;
+
+    // Convert interest rate to decimal
+    const annualInterestRateDecimal = interestRatePercent / 100;
+
+    let n; // Number of times interest is compounded per year
+
+    switch (compoundingFrequencyStr) {
+        case "annually":
+            n = 1;
+            break;
+        case "semi-annually":
+            n = 2;
+            break;
+        case "quarterly":
+             n = 4;
+            break;
+         default: // monthly
+             n = 12;
+    }
+
+    const r = annualInterestRateDecimal / n; // Interest rate per compounding period
+
+    calculateFutureValue(principalAmount, r, n, investmentPeriodYears);
+});
+
+function calculateFutureValue(P, r, n, t) {
+    const A = P * Math.pow((1 + r), (n * t));
+
+    document.getElementById('principalAmountCIO').textContent = `$${P.toFixed(2)}`;
+     document.getElementById('interestRateCIO').textContent = interestRatePercent.toFixed(2) + '% p.a.';
+      document.getElementById('investmentPeriodCIO').textContent = investmentPeriodYears + ' Years';
+
+    const futureValueCI = A.toFixed(2);
+    document.getElementById('futureValueCI').textContent = `$${futureValueCI}`;
+
+     // Interest Earned
+    const interestEarnedCI = (A - P).toFixed(2);
+     document.getElementById('interestEarnedCI').textContent = `$${interestEarnedCI}`;
+
+      // Total Investment
+       document.getElementById('totalInvestmentCIO').textContent = `$${futureValueCI}`;
+        console.log(`Future Value: $${futureValueCI}`);
+         console.log(`Interest Earned: $${interestEarnedCI}`);
+
+    document.getElementById('compoundInterestOutput').classList.remove('hidden');
+}
+</script>
+
+
+<footer class="bg-gray-900 text-white py-12 mt-24">
+    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <div>
+            <h4 class="text-xl font-semibold mb-4">About Compounding Growth</h4>
+             <p class="text-gray-300 mb-2"><i class="fa-solid fa-chart-line mr-1"></i> Discover the magic of compounding interest – how your investments grow exponentially over time.</p>
+            <p class="text-gray-300">Use our calculators to plan, visualize, and optimize your financial future.</p>
+
+             <!-- Social Icons -->
+            <div class="flex space-x-4 mt-8 justify-center">
+                <a href="#" target="_blank" rel="noopener noreferrer"><i
+                        class="fa-brands fa-facebook-square text-white hover:text-blue-500 transition-colors"></i></a>
+                <a href="#" target="_blank" rel="noopener noreferrer"><i
+                        class="fa-brands fa-twitter-square text-white hover:text-sky-400 transition-colors"></i></a>
+                <a href="#" target="_blank" rel="noopener noreferrer"><i
+                        class="fa-brands fa-instagram-square text-white hover:text-pink-500 transition-colors"></i></a>
+            </div>
+
+        </div>
+
+
+         <div>
+             <h4 class="text-xl font-semibold mb-4">Finance Calculators</h4>
+              <ul class="space-y-2">
+                 <li><a href="#compound-interest" onclick="document.querySelector('#loanOutputAuto').style.display = 'none'; document.querySelector('#autoLoanFormContainer').style.display = 'none'; document.getElementById('compoundInterestCalculatorSection').scrollIntoView({ behavior: 'smooth' });"
+                        class="hover:text-blue-500 transition-colors block py-1">Compound Interest Calculator</a></li>
+                 <li id="loan-calculator-link"><a href="#" onclick="document.querySelector('#compoundInterestFormContainer').style.display = 'none'; document.querySelector('#autoLoanFormContainer').style.display = ''; showCalculator('autoLoan');"
+                        class="hover:text-blue-500 transition-colors block py-1">Auto Loan Calculator</a></li>
+             </ul>
+
+        </div>
+
+
+         <div>
+            <h4 class="text-xl font-semibold mb-4">Contact Us & Support</h4>
+              <p class="text-gray-300 mb-2"><i class="fa-solid fa-envelope mr-1"></i> contact@financecalculators.com
+            </p>
+             <p class="text-gray-300"><i class="fa-solid fa-phone mr-1"></i> +1 (555) 987-6543</p>
+
+        </div>
+
+
+    </div> <!-- Grid Container -->
+     <div class="mt-8 border-t border-gray-700 pt-4 text-center">
+         <p class="text-gray-400">© 2024 Finance Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+     const mobileMenuButton = document.getElementById('mobile-menu-button');
+      if (mobileMenuButton) {
+          mobileMenuButton.addEventListener('click', () => {
+             const mobileMenu = document.getElementById('mobile-menu');
+              mobileMenu.classList.toggle('hidden');
+           });
+       }
+   });
+
+
+function showCalculator(calculatorType) {
+    console.log(`Switching to ${calculatorType} calculator...`);
+     if (calculatorType === 'autoLoan') {
+         document.querySelector('#compoundInterestFormContainer').style.display = 'none';
+          document.querySelector('#loanOutputAuto').classList.remove('hidden');
+           document.getElementById('autoLoanFormContainer').style.display = '';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+     } else if (calculatorType === 'compound') {
+         console.log('Switching to Compound Interest Calculator.');
+        // Reset Auto Loan display
+         document.querySelector('#loanOutputAuto').classList.add('hidden');
+          document.getElementById('autoLoanFormContainer').style.display = 'none';
+
+           // Show Compound Interest form and output
+            document.querySelector('#compoundInterestFormContainer').style.display = '';
+             if (document.querySelector('#compoundInterestOutput')) {
+                 document.querySelector('#compoundInterestOutput').classList.add('hidden'); // Initially hide output on load
+              }
+     } else {
+         console.log(`Unknown calculator type: ${calculatorType}`);
+      }
+  }
+
+
+   showCalculator('compound');
+</script>
+
+</body>
+</html>

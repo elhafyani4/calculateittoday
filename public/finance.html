@@ -1,0 +1,204 @@
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Calculators - Easy Math</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .calculator-card {
+            background-color: white;
+            border-radius: 1.25rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-200 to-purple-100">
+    <div class="container mx-auto px-4 py-16 md:py-32 lg:max-w-4xl">
+        <header class="mb-8 text-center">
+            <h1 class="text-4xl font-bold mb-4">Financial Calculators</h1>
+            <p class="text-lg text-gray-700">Perform quick calculations for your financial needs.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- Simple Interest Calculator -->
+            <div class="calculator-card p-6">
+                <h2 class="text-xl font-semibold mb-4">Simple Interest</h2>
+                <form id="simple-interest-form" class="space-y-4">
+                    <div>
+                        <label for="principal-simple" class="block text-sm font-medium text-gray-700">Principal Amount (P)</label>
+                        <input type="number" id="principal-simple" placeholder="Enter principal amount" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="rate-simple" class="block text-sm font-medium text-gray-700">Interest Rate (R) %</label>
+                        <input type="number" id="rate-simple" placeholder="Enter interest rate in percentage" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="time-simple" class="block text-sm font-medium text-gray-700">Time Period (T) in years</label>
+                        <input type="number" id="time-simple" placeholder="Enter time period in years" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    </div>
+                    <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500">
+                        Calculate Simple Interest
+                    </button>
+                </form>
+
+                <div id="simple-interest-result" class="mt-4 p-3 bg-gray-100 rounded-md hidden">
+                    <p>Simple Interest: $<span id="result-simple">0.00</span></p>
+                </div>
+            </div>
+
+
+             <!-- Loan Amortization Calculator -->
+            <div class="calculator-card p-6">
+                <h2 class="text-xl font-semibold mb-4">Loan Amortization Schedule</h2>
+
+                 <form id="loan-amortization-form" class="space-y-4">
+
+                    <div>
+                        <label for="principal-loan" class="block text-sm font-medium text-gray-700">Principal Amount (P)</label>
+                        <input type="number" id="principal-loan" placeholder="Enter loan amount" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    </div>
+
+                     <div>
+                        <label for="rate-loan" class="block text-sm font-medium text-gray-700">Annual Interest Rate (R) %</label>
+                        <input type="number" id="rate-loan" placeholder="Enter annual interest rate in percentage" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    </div>
+
+                     <div>
+                        <label for="years-loan" class="block text-sm font-medium text-gray-700">Loan Term (Y) in years</label>
+                        <input type="number" id="years-loan" placeholder="Enter loan term in years" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    </div>
+
+                     <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent font-semibold rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500">
+                        Generate Amortization Schedule
+                    </button>
+                </form>
+
+                 <div id="loan-amortization-result" class="mt-4 overflow-x-auto hidden">
+
+                     <table class="min-w-full text-left table-auto border-collapse border-gray-200 shadow-sm rounded-md">
+                         <thead class="bg-blue-100 text-xs font-semibold uppercase text-gray-700 tracking-wide">
+                            <tr>
+                                <th class="px-4 py-3">Month</th>
+                                <th class="px-4 py-3">Principal Payment</th>
+                                <th class="px-4 py-3">Interest Payment</th>
+                                 <th class="px-4 py-3">Total Monthly Payment</th>
+                                 <th class="px-4 py-3">Remaining Balance</th>
+                            </tr>
+                         </thead>
+
+                          <tbody id="loan-schedule-body" class="bg-white divide-y">
+
+
+                          </tbody>
+                     </table>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+     const simpleInterestForm = document.getElementById('simple-interest-form');
+     const loanAmortizationForm = document.getElementById('loan-amortization-form');
+
+    if (simpleInterestForm) {
+         simpleInterestForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            calculateSimpleInterest();
+        });
+    }
+
+      if (loanAmortizationForm) {
+           loanAmortizationForm.addEventListener('submit', function(event) {
+              event.preventDefault();
+               generateLoanSchedule();
+          });
+     }
+
+
+    function calculateSimpleInterest() {
+
+         const principal = parseFloat(document.getElementById('principal-simple').value);
+         const rate = parseFloat(document.getElementById('rate-simple').value);
+         const time = parseFloat(document.getElementById('time-simple').value);
+
+        if (isNaN(principal) || isNaN(rate) || isNaN(time)) {
+             alert("Please enter valid numbers for all fields.");
+            return;
+        }
+
+         const simpleInterest = principal * (rate / 100) * time;
+
+         document.getElementById('result-simple').textContent = simpleInterest.toFixed(2);
+         document.getElementById('simple-interest-result').classList.remove('hidden');
+    }
+
+
+     function generateLoanSchedule() {
+          const loanAmount = parseFloat(document.getElementById('principal-loan').value);
+           const annualRate = parseFloat(document.getElementById('rate-loan').value);
+            const years = parseInt(document.getElementById('years-loan').value);
+
+         if (isNaN(loanAmount) || isNaN(annualRate) || isNaN(years)) {
+             alert("Please enter valid numbers for all fields.");
+              return;
+          }
+
+           const monthlyInterestRate = annualRate / 100 / 12;
+            const totalPayments = years * 12;
+
+             // Calculate monthly payment using formula: P*M^N / (M^N - 1)
+             const monthlyPayment = loanAmount * (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, totalPayments)) /
+                (Math.pow(1 + monthlyInterestRate, totalPayments) - 1);
+
+              let remainingBalance = loanAmount;
+               const scheduleBody = document.getElementById('loan-schedule-body');
+                 scheduleBody.innerHTML = '';
+
+                   for (let month = 1; month <= totalPayments; month++) {
+                        const interestPayment = remainingBalance * monthlyInterestRate;
+                         const principalPayment = monthlyPayment - interestPayment;
+
+                          if (month === totalPayments) { // Last payment might be slightly off due to rounding
+                               principalPayment = remainingBalance;
+                                interestPayment = 0;
+                                 monthlyPayment = remainingBalance;
+                                  remainingBalance = 0;
+                           } else {
+                              remainingBalance -= principalPayment;
+                          }
+
+                         const row = document.createElement('tr');
+                            row.innerHTML = `
+                             <td class="px-4 py-3">${month}</td>
+                               <td class="px-4 py-3">$${principalPayment.toFixed(2)}</td>
+                                <td class="px-4 py-3">$${interestPayment.toFixed(2)}</td>
+                                 <td class="px-4 py-3">$${monthlyPayment.toFixed(2)}</td>
+                                  <td class="px-4 py-3">$${remainingBalance.toFixed(2)}</td>
+                            `;
+                          scheduleBody.appendChild(row);
+                    }
+
+                 document.getElementById('loan-amortization-result').classList.remove('hidden');
+     }
+
+
+});
+
+
+
+</script>
+
+</body>
+</html>

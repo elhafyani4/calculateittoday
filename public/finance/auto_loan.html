@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Loan Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <style>body { font-family: 'Poppins', sans-serif; }</style>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+<div class="container mx-auto px-6 py-24">
+    <h1 class="text-3xl md:text-5xl font-bold mb-8 text-center">Auto Loan Calculator</h1>
+
+    <form id="autoLoanForm" class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-md space-y-6">
+        <div>
+            <label for="carPrice" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Car Price</label>
+            <input type="number" id="carPrice" placeholder="$15,000" min="0"
+                   class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                   required>
+        </div>
+
+        <div>
+            <label for="downPayment" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Down Payment</label>
+            <input type="number" id="downPayment" placeholder="$3,000" min="0"
+                   class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                   required>
+        </div>
+
+        <div>
+            <label for="loanTerm" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Loan Term (Years)</label>
+            <select id="loanTerm" class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                <option value="3">3 Years</option>
+                <option selected value="4">4 Years</option>
+                <option value="5">5 Years</option>
+                <option value="6">6 Years</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="interestRate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Interest Rate (%)</label>
+            <input type="number" id="interestRate" placeholder="5.0%" step="any" min="0"
+                   class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                   required>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center">Calculate Monthly Payment</button>
+    </form>
+
+    <div id="loanOutput" class="mt-12 hidden">
+        <h2 class="text-xl font-semibold mb-4">Loan Summary</h2>
+        <p><strong>Monthly Payment:</strong> <span id="monthlyPayment">$0.00</span></p>
+        <p><strong>Total Loan Amount:</strong> <span id="loanAmount">$0.00</span></p>
+    </div>
+
+</div>
+
+
+<script>
+document.getElementById('autoLoanForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const carPrice = parseFloat(document.getElementById('carPrice').value);
+    const downPayment = parseFloat(document.getElementById('downPayment').value);
+    const loanTermYears = parseInt(document.getElementById('loanTerm').value);
+    const interestRate = parseFloat(document.getElementById('interestRate').value);
+
+    if (isNaN(carPrice) || isNaN(downPayment) || isNaN(loanTermYears) || isNaN(interestRate)) {
+        alert("Please fill out all required fields correctly.");
+        return;
+    }
+
+    calculateLoanMonthlyPayment(carPrice, downPayment, loanTermYears, interestRate);
+});
+
+function calculateLoanMonthlyPayment(carPrice, downPayment, termInYears, annualInterestRate) {
+    const loanAmount = carPrice - downPayment;
+    const monthlyInterestRate = annualInterestRate / 100 / 12; // Convert percentage to decimal and then per month
+    const totalPayments = termInYears * 12;
+
+    const monthlyPayment = (loanAmount * monthlyInterestRate) /
+                         (1 - Math.pow(1 + monthlyInterestRate, -totalPayments));
+
+    document.getElementById('monthlyPayment').textContent = `$${monthlyPayment.toFixed(2)}`;
+    document.getElementById('loanAmount').textContent = `$${loanAmount.toFixed(2)}`;
+
+    document.getElementById('loanOutput').classList.remove('hidden');
+}
+</script>
+
+<footer class="bg-gray-900 text-white py-12 mt-24">
+    <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+            <h4 class="text-xl font-semibold mb-4">About Us</h4>
+            <p class="text-gray-300">Welcome to the most comprehensive collection of calculators online. Our mission
+                is to simplify complex calculations and provide users with tools for financial planning, car loan estimations,
+                math operations, and more.</p>
+        </div>
+
+        <div>
+            <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+            <ul class="space-y-2">
+                <li><a href="#" onclick="showCalculator('mortgage')"
+                        class="hover:text-blue-500 transition-colors block py-1">Mortgage Calculator</a></li>
+                <li><a href="#contact-section" class="hover:text-blue-500 transition-colors block py-1">Contact Us</a></li>
+                <li><a href="#" class="hover:text-blue-500 transition-colors block py-1">Privacy Policy</a></li>
+                <li><a href="#" class="hover:text-blue-500 transition-colors block py-1">Terms of Service</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="text-xl font-semibold mb-4">Contact Us</h4>
+            <p class="text-gray-300 mb-2"><i class="fa-solid fa-envelope mr-1"></i> contact@calculatorwebsite.com
+            </p>
+            <p class="text-gray-300"><i class="fa-solid fa-phone mr-1"></i> +1 (555) 123-4567</p>
+
+            <!-- Social Icons -->
+            <div class="flex space-x-4 mt-8 justify-center">
+                <a href="#" target="_blank" rel="noopener noreferrer"><i
+                        class="fa-brands fa-facebook-square text-white hover:text-blue-500 transition-colors"></i></a>
+                <a href="#" target="_blank" rel="noopener noreferrer"><i
+                        class="fa-brands fa-twitter-square text-white hover:text-sky-400 transition-colors"></i></a>
+                <a href="#" target="_blank" rel="noopener noreferrer"><i
+                        class="fa-brands fa-instagram-square text-white hover:text-pink-500 transition-colors"></i></a>
+            </div>
+        </div>
+
+    </div> <!-- Grid Container -->
+    <div class="mt-8 border-t border-gray-700 pt-4 text-center">
+        <p class="text-gray-400">© 2024 Calculator Website. All rights reserved.</p>
+    </div>
+</footer>
+
+
+<script src="https://unpkg.com/@tailwindcss/browser@latest"></script></body>
+</html>
