@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMR Calculator - Your Daily Energy Needs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f2ef;
+            color: #1e293b;
+        }
+        .calculator-container {
+            background: linear-gradient(135deg, #ffffff, #e0f7fa);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .result-card {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        button.calc-button:hover {
+            transform: scale(1.05);
+            transition-duration: 300ms;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<header class="sticky top-0 z-50 bg-white shadow-md">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="text-xl font-bold text-blue-700">BMR Calculator</div>
+        <ul class="hidden md:flex space-x-8 text-gray-700">
+            <li><a href="#calculator" class="hover:text-blue-500 transition-colors">Calculator</a></li>
+            <li><a href="#about" class="hover:text-blue-500 transition-colors">About BMR</a></li>
+        </ul>
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-gray-700 hover:text-blue-500 focus:outline-none">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+     <div class="md:hidden hidden" id="mobile-menu">
+         <ul class="px-2 py-4 flex flex-col space-y-3 text-gray-700">
+             <li><a href="#calculator" class="block px-4 py-2 hover:bg-gray-100 rounded-md">Calculator</a></li>
+             <li><a href="#about" class="block px-4 py-2 hover:bg-gray-100 rounded-md">About BMR</a></li>
+         </ul>
+     </div>
+
+</header>
+
+
+<main class="container mx-auto mt-8 md:mt-16">
+    <section id="hero" class="mb-16 text-center px-4">
+        <h1 class="text-3xl sm:text-5xl font-bold text-blue-900 mb-4">Calculate Your Basal Metabolic Rate</h1>
+        <p class="text-lg text-gray-700 max-w-xl mx-auto">Effortlessly determine your daily energy expenditure with our intuitive BMR calculator. Understand your body's needs for optimal health and fitness.</p>
+    </section>
+
+    <section id="calculator" class="mb-24 px-6">
+        <div class="max-w-lg mx-auto bg-white rounded-xl shadow-md overflow-hidden calculator-container p-8 md:p-10">
+
+            <h2 class="text-2xl font-semibold text-gray-900 mb-8">BMR Calculation Form</h2>
+
+             <form id="bmr-form">
+                <div class="mb-4">
+                    <label for="age" class="block text-sm font-medium text-gray-700 mb-1">Age (years)</label>
+                    <input type="number" id="age" name="age" placeholder="Your Age" required min="1"
+                        class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+
+                <div class="mb-4">
+                    <label for="weight" class="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label>
+                    <input type="number" id="weight" name="weight" placeholder="Your Weight in kg" required min="1"
+                        class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+
+                 <div class="mb-6">
+                    <label for="height" class="block text-sm font-medium text-gray-700 mb-1">Height (cm)</label>
+                    <input type="number" id="height" name="height" placeholder="Your Height in cm" required min="1"
+                        class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                </div>
+
+                 <div class="mb-6">
+                    <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+                     <select id="gender" name="gender"
+                        class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                         <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+
+                 <button type="submit" class="calc-button bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full w-full transition-colors duration-300">
+                     Calculate BMR
+                 </button>
+            </form>
+
+
+             <div id="result-section" class="hidden mt-12 p-6 result-card rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-900 mb-4">Your Basal Metabolic Rate</h3>
+
+                <p id="bmr-result-text" class="text-lg text-blue-800 font-bold"></p>
+                 <div id="result-details-section" class="mt-6">
+                     <ul class="space-y-2">
+                        <li><span class="font-semibold">BMR:</span> <span id="calculated-bmr">----</span></li>
+                         <li><span class="font-semibold">Daily Caloric Needs (Approx):</span> <span id="daily-calories">----</span> calories/day</li>
+                     </ul>
+
+                    <p class="mt-4 text-gray-700">
+                        This is your Basal Metabolic Rate, the minimum number of calories required to maintain basic body functions at rest.
+                         It provides a rough estimate and can vary based on factors like muscle mass and activity level. For more precise nutrition planning,
+                          consider consulting with a dietitian or fitness professional.</p>
+                 </div>
+
+             </div>
+
+
+        </div>
+    </section>
+
+     <section id="about" class="mb-16 px-4">
+         <h2 class="text-2xl font-semibold text-gray-900 mb-8">What is Basal Metabolic Rate (BMR)?</h2>
+          <p class="text-lg text-gray-700 mb-6">
+             Your BMR, or Basal Metabolic Rate, is the number of calories your body burns at rest to maintain essential functions like breathing,
+              circulation, and cell production. It's a crucial metric for understanding energy requirements and planning healthy diets.
+          </p>
+           <ul class="list-disc list-inside text-gray-700 space-y-2">
+               <li>BMR is calculated based on age, gender, weight, and height.</li>
+                <li>It helps in setting realistic calorie goals for weight loss or gain.</li>
+                 <li>Your BMR can vary due to factors like genetics, muscle mass, and hormonal changes.</li>
+           </ul>
+
+             <p class="mt-6 text-gray-700">
+               Use our calculator above to find your own BMR and better understand your daily energy needs. This knowledge is the first step towards achieving
+                balanced nutrition and improved health.
+            </p>
+    </section>
+
+
+</main>
+
+<footer class="bg-blue-100 py-8 text-center">
+     <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+</footer>
+
+<script src="//unpkg.com/@tailwindcss/browser@3"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('#bmr-form');
+    const resultSection = document.getElementById('result-section');
+    const bmrResultText = document.getElementById('bmr-result-text');
+     const calculatedBMRField = document.getElementById('calculated-bmr');
+      const dailyCaloriesField = document.getElementById('daily-calories');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const age = parseFloat(document.getElementById('age').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        const height = parseFloat(document.getElementById('height').value);
+         const gender = document.getElementById('gender').value;
+
+          if (isNaN(age) || isNaN(weight) || isNaN(height)) {
+            alert("Please enter valid numbers for age, weight, and height.");
+             return;
+        }
+
+        let bmrValue = 0;
+        let dailyCaloriesValue = 0;
+
+         if (gender === "male") {
+              bmrValue = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+            } else if (gender === "female") {
+                bmrValue = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+            }
+
+             dailyCaloriesValue = bmrValue * 1.2; // Sedentary lifestyle, minor activity
+
+
+         calculatedBMRField.textContent = Math.round(bmrValue);
+          dailyCaloriesField.textContent = Math.round(dailyCaloriesValue);
+
+        resultSection.classList.remove('hidden');
+    });
+
+
+
+     const mobileMenuButton = document.querySelector('#mobile-menu-button');
+      const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
+
+       if (mobileMenuButton) {
+            mobileMenuButton.addEventListener('click', function() {
+                document.body.classList.toggle('menu-open');
+            });
+
+             for (const item of mobileMenuItems) {
+                 item.addEventListener('click', function() {
+                     document.body.classList.remove('menu-open');
+                 });
+             }
+        }
+
+
+});
+</script>

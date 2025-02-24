@@ -2,6 +2,7 @@
   "name": "calculator-website",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js"
@@ -11,6 +12,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^4.21.2"
+    "calculator-website": "file:",
+    "express": "^4.21.2",
+    "node-fetch": "^3.3.2",
+    "requests": "^0.3.0"
   }
 }

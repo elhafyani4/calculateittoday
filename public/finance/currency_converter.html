@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter - Calculator Hub</title>
+    <meta name="description" content="Use our currency converter to easily convert between different currencies. Get real-time exchange rates and accurate conversion results.">
+    <meta name="keywords" content="currency converter, exchange rates, currency exchange, convert currency, financial tools">
+    <meta name="author" content="Calculator Hub">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            transition-duration: 300ms;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translatey(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+    <nav class="fixed w-full top-0 z-30 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center font-bold text-xl text-blue-600">
+                <i class="fa-solid fa-calculator mr-2"></i> Calculator Hub
+            </a>
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="#finance" class="hover:text-blue-500 transition-colors"><i
+                            class="fa-solid fa-hand-holding-dollar mr-1"></i> Finance</a></li>
+                <li><a href="/fitness" class="hover:text-green-500 transition-colors"><i
+                            class="fa-solid fa-heart-pulse mr-1"></i> Fitness & Health</a></li>
+                <li><a href="#math" class="hover:text-yellow-500 transition-colors"><i
+                            class="fa-solid fa-square-root-variable mr-1"></i> Math</a></li>
+                <li><a href="#utility" class="hover:text-purple-500 transition-colors"><i
+                            class="fa-solid fa-tools mr-1"></i> Utility</a></li>
+            </ul>
+            <button class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    <div class="mt-24">
+        <h1 class="text-3xl font-bold mb-8 text-center">Currency Converter</h1>
+        <p class="text-center text-lg mb-8">Easily convert between different currencies using real-time exchange rates. Get accurate conversion results instantly.</p>
+        <div class="converter-container p-8 rounded-lg max-w-md mx-auto mt-24 mb-16 shadow-xl">
+            <form id="currencyForm" class="space-y-6">
+                <div>
+                    <label for="fromCurrency" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">From Currency</label>
+                    <select id="fromCurrency" name="fromCurrency"
+                        class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div>
+                    <label for="toCurrency" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">To Currency</label>
+                    <select id="toCurrency" name="toCurrency"
+                        class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+
+                <div>
+                    <label for="amount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Amount</label>
+                    <input type="number" id="amount" name="amount" value="1" placeholder="Enter amount"
+                        class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+                <button type="submit"
+                    class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg w-full transition-colors duration-300">
+                    Convert
+                </button>
+            </form>
+
+            <div id="conversionResult" class="mt-8 p-4 bg-gray-100 rounded-md hidden">
+                <h3 class="text-xl font-semibold mb-2">Conversion Result</h3>
+                <p id="resultText"></p>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module">
+
+        let rates = {};
+
+        const currencyForm = document.getElementById('currencyForm');
+        const conversionResult = document.getElementById('conversionResult');
+        const resultText = document.getElementById('resultText');
+
+        function populateCurrencyOptions(selectElement, data, selected) {
+            Object.keys(data).forEach(code => {
+                const option = document.createElement('option');
+                option.value = code;
+                option.textContent = `${code.toLocaleUpperCase()} - ${data[code]}`;
+                selectElement.appendChild(option);
+                if (selected === code) {
+                    option.selected = true;
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const fromCurrencySelect = document.getElementById('fromCurrency');
+            const toCurrencySelect = document.getElementById('toCurrency');
+
+            fetch('/api/get-currencies')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.rate) {
+                        Object.assign(rates, data.rate);
+
+                        populateCurrencyOptions(fromCurrencySelect, rates, "usd");
+                        populateCurrencyOptions(toCurrencySelect, rates, "eur");
+                    } else {
+                        console.error('Failed to fetch currency rates:', data.error);
+                    }
+                })
+                .catch(error => console.error('Error fetching currency rates:', error));
+
+            currencyForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const fromCurrencyCode = fromCurrencySelect.value;
+                const toCurrencyCode = toCurrencySelect.value;
+                const amount = parseFloat(document.getElementById('amount').value);
+
+                if (isNaN(amount)) {
+                    alert("Please enter a valid number for the amount.");
+                    return;
+                }
+
+                if (!rates[fromCurrencyCode] || !rates[toCurrencyCode]) {
+                    resultText.textContent = "Invalid currency selection.";
+                    conversionResult.classList.remove('hidden');
+                    return;
+                }
+
+                let toRate = 0;
+
+                fetch(`/api/get-currency-exchange?currency=${fromCurrencyCode}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data) {
+                            toRate = data.rate[fromCurrencyCode][toCurrencyCode];
+                            const fromRate = 1;
+
+                            let convertedAmount = 0;
+
+                            if (fromCurrencyCode === toCurrencyCode) {
+                                convertedAmount = amount;
+                            }
+                            else {
+                                convertedAmount = amount * toRate;
+                            }
+
+                            resultText.textContent = `${amount.toLocaleString()} ${fromCurrencyCode.toLocaleUpperCase()} is approximately ${convertedAmount.toFixed(5).toLocaleString()} ${toCurrencyCode.toLocaleUpperCase()}.`;
+                            conversionResult.classList.remove('hidden');
+                        } else {
+                            console.error('Failed to fetch currency rates:', data.error);
+                        }
+                    })
+                    .catch(error => console.error('Error fetching currency rates:', error));
+            });
+        });
+    </script>
+
+</body>
+
+</html>

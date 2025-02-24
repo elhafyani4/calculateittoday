@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" class="safari:bg-gray-50">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12l-5-5 1.5-1.5L10 9l7.5-7.5L18 7z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right .7em top 50%, 0 0;
+            background-size: 1.5em auto;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+    <nav class="fixed w-full top-0 z-30 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center font-bold text-xl text-blue-600">
+                <i class="fa-solid fa-calculator mr-2"></i> Calculator Hub
+            </a>
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="#finance" class="hover:text-blue-500 transition-colors"><i
+                            class="fa-solid fa-hand-holding-dollar mr-1"></i> Finance</a></li>
+                <li><a href="/fitness" class="hover:text-green-500 transition-colors"><i
+                            class="fa-solid fa-heart-pulse mr-1"></i> Fitness & Health</a></li>
+                <li><a href="#math" class="hover:text-yellow-500 transition-colors"><i
+                            class="fa-solid fa-square-root-variable mr-1"></i> Math</a></li>
+                <li><a href="#utility" class="hover:text-purple-500 transition-colors"><i
+                            class="fa-solid fa-tools mr-1"></i> Utility</a></li>
+            </ul>
+            <button class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="ontainer mx-auto px-6 py-24">
+        <h1 class="text-3xl font-bold mb-8 text-center">Timezone Converter</h1>
+        <div class="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-md space-y-6 text-center">
+            <div>
+                <label class="text-md text-blue-600">Current Time (Local):</label>
+                <div id="current-time" class="text-4xl text-gray-700"></div>
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+                <label for="timeZoneSelect" class="text-blue-600">Choose Your Time Zone:</label><br>
+                <select id="timeZoneSelect" onchange="updateTimeZone()"
+                    class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full text-center shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </div>
+            <div style="margin-top: 3rem;">
+                <p class="text-green-600">Converted Time to Selected Timezone</p>
+                <div id="converted-time" class="text-6xl"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const currentTimeElement = document.getElementById('current-time');
+        const convertedTimeElement = document.getElementById('converted-time');
+        const timeZoneSelect = document.getElementById('timeZoneSelect');
+
+        // List of timezones
+        const timeZones = [
+            { name: "Pacific/Apia", offset: -11 },
+            { name: "Pacific/Honolulu", offset: -10 },
+            { name: "America/Adak", offset: -10 },
+            { name: "Pacific/Rarotonga", offset: -10 },
+            { name: "Pacific/Marquesas", offset: -9.5 },
+            { name: "Pacific/Gambier", offset: -9 },
+            { name: "Pacific/Pitcairn", offset: -8.3 },
+            { name: "America/Anchorage", offset: -8 },
+            { name: "America/Los_Angeles", offset: -7 },
+            { name: "America/Phoenix", offset: -7 },
+            { name: "America/Denver", offset: -6 },
+            { name: "America/Costa_Rica", offset: -6 },
+            { name: "America/Chicago", offset: -5 },
+            { name: "Pacific/Easter", offset: -5 },
+            { name: "America/Indianapolis", offset: -4, observeDST: true },
+            { name: "America/New_York", offset: -4, observeDST: true },
+            { name: "America/Havana", offset: -4 },
+            { name: "America/Port-au-Prince", offset: -4 },
+            { name: "America/Grand_Turk", offset: -4 },
+            { name: "America/Caracas", offset: -3, observeDST: true },
+            { name: "America/Cuiaba", offset: -3 },
+            { name: "America/Halifax", offset: -3 },
+            { name: "America/Santiago", offset: -3 },
+            { name: "Atlantic/Stanley", offset: -3 },
+            { name: "America/Buenos_Aires", offset: -3 },
+            { name: "Pacific/St_Johns", offset: -2.5, observeDST: true },
+            { name: "America/Sao_Paulo", offset: -2 },
+            { name: "America/Miquelon", offset: -2 },
+            { name: "America/Godthab", offset: -2 },
+            { name: "Atlantic/South_Georgia", offset: -2 },
+            { name: "Atlantic/Cape_Verde", offset: -1 },
+            { name: "Africa/Casablanca", offset: 0, observeDST: true },
+            { name: "Europe/London", offset: 0, observeDST: true },
+            { name: "Africa/Lagos", offset: 1 },
+            { name: "Africa/Tripoli", offset: 2 },
+            { name: "Europe/Paris", offset: 2, observeDST: true },
+            { name: "Europe/Warsaw", offset: 2, observeDST: true },
+            { name: "Africa/Johannesburg", offset: 2 },
+            { name: "Europe/Bucharest", offset: 3, observeDST: true },
+            { name: "Europe/Istanbul", offset: 3 },
+            { name: "Asia/Kaliningrad", offset: 3 },
+            { name: "Africa/Cairo", offset: 2 },
+            { name: "Asia/Yerevan", offset: 4, observeDST: true },
+            { name: "Asia/Tehran", offset: 3.5 },
+            { name: "Asia/Kabul", offset: 4.5 },
+            { name: "Asia/Baku", offset: 4 },
+            { name: "Europe/Samara", offset: 4 },
+            { name: "Asia/Dubai", offset: 4 },
+            { name: "Asia/Tashkent", offset: 5 },
+            { name: "Asia/Kolkata", offset: 5.5 },
+            { name: "Asia/Katmandu", offset: 5.75 },
+            { name: "Asia/Yekaterinburg", offset: 6, observeDST: true },
+            { name: "Asia/Almaty", offset: 6 },
+            { name: "Asia/Bishkek", offset: 6 },
+            { name: "Asia/Ulaanbaatar", offset: 7 },
+            { name: "Asia/Rangoon", offset: 6.5 },
+            { name: "Indian/Maldives", offset: 5.0 },
+            { name: "Asia/Novosibirsk", offset: 7, observeDST: true },
+            { name: "Asia/Taipei", offset: 8 },
+            { name: "Australia/Darwin", offset: 9.5 },
+            { name: "Asia/Vladivostok", offset: 10, observeDST: true },
+            { name: "Pacific/Guam", offset: 10 },
+            { name: "Australia/Perth", offset: 8 },
+            { name: "Asia/Krasnoyarsk", offset: 7, observeDST: true },
+            { name: "Asia/Irkutsk", offset: 9, observeDST: true },
+            { name: "Asia/Bangkok", offset: 7 },
+            { name: "Australia/Sydney", offset: 10, observeDST: true },
+            { name: "Asia/Tokyo", offset: 9, observeDST: true },
+            { name: "Pacific/Auckland", offset: 12, observeDST: true },
+            { name: "Asia/Seoul", offset: 9 },
+            { name: "Australia/Lord_Howe", offset: 10.5 },
+            { name: "Europe/Moscow", offset: 4, observeDST: true },
+            { name: "Indian/Cocos", offset: 6.5 },
+            { name: "Asia/Kamchatka", offset: 12, observeDST: true },
+            { name: "Pacific/Fiji", offset: 12 },
+            { name: "Australia/Brisbane", offset: 10, observeDST: true },
+            { name: "Asia/Yakutsk", offset: 9, observeDST: true },
+            { name: "Indian/Chagos", offset: 6.0 },
+            { name: "Pacific/Enderbury", offset: 13.0 },
+            { name: "Australia/Lindeman", offset: 10.0 },
+            { name: "Asia/Khandyga", offset: 9.0 },
+            { name: "Indian/Mahe", offset: 4.0 },
+            { name: "Pacific/Rokkaku", offset: 9.0 },
+            { name: "Pacific/Tongatapu", offset: 13, observeDST: true },
+            { name: "Asia/Anadyr", offset: 12, observeDST: true },
+            { name: "Pacific/Kiritimati", offset: 14 }
+        ];
+
+        // Populate the timezone select element
+        timeZones.forEach(timeZone => {
+            const option = document.createElement('option');
+            option.value = timeZone.offset;
+            option.textContent = `${timeZone.name} (GMT${timeZone.offset >= 0 ? '+' : ''}${timeZone.offset})`;
+            timeZoneSelect.appendChild(option);
+        });
+
+        function updateTimeZone() {
+            const now = new Date();
+            currentTimeElement.textContent = `${now.toLocaleString('en-US', { hour12: false })}`;
+
+            const selectedOffset = parseFloat(timeZoneSelect.value);
+            const offsetMinutes = (selectedOffset - Math.floor(selectedOffset)) * 60;
+
+            let convertedTimeHours = now.getUTCHours() + Math.floor(selectedOffset);
+            let convertedTimeMinutes = now.getUTCMinutes() + offsetMinutes;
+
+            if (convertedTimeMinutes >= 60) {
+                convertedTimeHours += Math.floor(convertedTimeMinutes / 60);
+                convertedTimeMinutes %= 60;
+            } else if (convertedTimeMinutes < 0) {
+                convertedTimeHours -= Math.ceil(Math.abs(convertedTimeMinutes) / 60);
+                convertedTimeMinutes = 60 + (convertedTimeMinutes % 60);
+            }
+
+            if (convertedTimeHours < 0) {
+                convertedTimeHours += 24;
+            } else if (convertedTimeHours >= 24) {
+                convertedTimeHours -= 24;
+            }
+
+            const minutes = String(Math.floor(convertedTimeMinutes)).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+
+            let period = "AM";
+            if (convertedTimeHours > 12) {
+                period = "PM";
+                convertedTimeHours -= 12;
+            } else if (convertedTimeHours === 0) {
+                convertedTimeHours = 12;
+                period = "AM";
+            } else if (convertedTimeHours === 12) {
+                period = "PM";
+            }
+
+            const convertedTimeString = `${String(convertedTimeHours).padStart(2, '0')}:${minutes}:${seconds} ${period}`;
+
+            let timeZoneAbbreviation = '';
+            timeZones.forEach(timeZone => {
+                if (timeZone.offset == selectedOffset) {
+                    timeZoneAbbreviation = timeZone.name.split(' ')[0]; // Get the abbreviation part
+                }
+            });
+
+            convertedTimeElement.textContent = `${convertedTimeString}`;
+        }
+
+        setInterval(updateTimeZone, 1000);
+
+        // Initial time update
+        updateTimeZone();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Hub - Your Personal Financial & Utility Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            transition-duration: 300ms;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translatey(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+    <nav class="fixed w-full top-0 z-30 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center font-bold text-xl text-blue-600">
+                <i class="fa-solid fa-calculator mr-2"></i> Calculator Hub
+            </a>
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="#finance" class="hover:text-blue-500 transition-colors"><i
+                            class="fa-solid fa-hand-holding-dollar mr-1"></i> Finance</a></li>
+                <li><a href="/fitness" class="hover:text-green-500 transition-colors"><i
+                            class="fa-solid fa-heart-pulse mr-1"></i> Fitness & Health</a></li>
+                <li><a href="#math" class="hover:text-yellow-500 transition-colors"><i
+                            class="fa-solid fa-square-root-variable mr-1"></i> Math</a></li>
+                <li><a href="#utility" class="hover:text-purple-500 transition-colors"><i
+                            class="fa-solid fa-tools mr-1"></i> Utility</a></li>
+            </ul>
+            <button class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    <div class="mt-24">
+        <h1 class="text-3xl font-bold mb-8 text-center">Income Tax Calculator</h1>
+        <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-md space-y-6">
+            <form id="incomeTaxForm" class="space-y-6">
+                <div>
+                    <label for="grossIncome" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gross
+                        Income ($)</label>
+                    <input type="number" min="1000" step="1000" id="grossIncome" placeholder="$50,000.00"
+                        class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required>
+                </div>
+
+                <div>
+                    <label for="filingStatus"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filing Status</label>
+                    <select id="filingStatus"
+                        class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="single">Single</option>
+                        <option value="marriedFilingJointly">Married Filing Jointly</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="stateResidence"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State of Residence</label>
+                    <select id="stateResidence"
+                        class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="al">Alabama (AL)</option>
+                        <option value="ak">Alaska (AK)</option>
+                        <option value="az">Arizona (AZ)</option>
+                        <option value="ar">Arkansas (AR)</option>
+                        <option value="ca">California (CA)</option>
+                        <option value="co">Colorado (CO)</option>
+                        <option value="ct">Connecticut (CT)</option>
+                        <option value="de">Delaware (DE)</option>
+                        <option value="fl">Florida (FL)</option>
+                        <option value="ga">Georgia (GA)</option>
+                        <option value="hi">Hawaii (HI)</option>
+                        <option value="id">Idaho (ID)</option>
+                        <option value="il">Illinois (IL)</option>
+                        <option value="in">Indiana (IN)</option>
+                        <option value="ia">Iowa (IA)</option>
+                        <option value="ks">Kansas (KS)</option>
+                        <option value="ky">Kentucky (KY)</option>
+                        <option value="la">Louisiana (LA)</option>
+                        <option value="me">Maine (ME)</option>
+                        <option value="md">Maryland (MD)</option>
+                        <option value="ma">Massachusetts (MA)</option>
+                        <option value="mi">Michigan (MI)</option>
+                        <option value="mn">Minnesota (MN)</option>
+                        <option value="ms">Mississippi (MS)</option>
+                        <option value="mo">Missouri (MO)</option>
+                        <option value="mt">Montana (MT)</option>
+                        <option value="ne">Nebraska (NE)</option>
+                        <option value="nv">Nevada (NV)</option>
+                        <option value="nh">New Hampshire (NH)</option>
+                        <option value="nj">New Jersey (NJ)</option>
+                        <option value="nm">New Mexico (NM)</option>
+                        <option value="ny">New York (NY)</option>
+                        <option value="nc">North Carolina (NC)</option>
+                        <option value="nd">North Dakota (ND)</option>
+                        <option value="oh">Ohio (OH)</option>
+                        <option value="ok">Oklahoma (OK)</option>
+                        <option value="or">Oregon (OR)</option>
+                        <option value="pa">Pennsylvania (PA)</option>
+                        <option value="ri">Rhode Island (RI)</option>
+                        <option value="sc">South Carolina (SC)</option>
+                        <option value="sd">South Dakota (SD)</option>
+                        <option value="tn">Tennessee (TN)</option>
+                        <option value="tx">Texas (TX)</option>
+                        <option value="ut">Utah (UT)</option>
+                        <option value="vt">Vermont (VT)</option>
+                        <option value="va">Virginia (VA)</option>
+                        <option value="wa">Washington (WA)</option>
+                        <option value="wi">Wisconsin (WI)</option>
+                        <option value="wv">West Virginia (WV)</option>
+                        <option value="wy">Wyoming (WY)</option>
+                    </select>
+                </div>
+
+                <button type="submit"
+                    class="w-full text-white mt-6 py-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center">Calculate
+                    Income Tax</button>
+            </form>
+
+            <div id="incomeTaxOutput" class="mt-12 hidden">
+                <h2 class="text-xl font-semibold mb-4">Estimated Income Tax Liability</h2>
+                <p><strong>Gross Income:</strong> $<span id="grossIncomeValue"></span></p>
+                <p><strong>Filing Status:</strong> <span id="filingStatusValue"></span></p>
+                <p><strong>State of Residence:</strong> <span id="stateResidenceValue"></span></p>
+                <hr class="my-4 border-gray-200 dark:border-gray-700">
+                <p><strong>Federal Tax Liability:</strong> $<span id="federalTaxLiability"></span></p>
+                <p><strong>State Tax Liability (Avg. Rate):</strong> $<span id="stateTaxLiability"></span></p>
+                <p><strong>Total Estimated Tax Liability:</strong> $<span id="totalEstimatedTaxLiability"></span></p>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('incomeTaxForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const grossIncome = parseFloat(document.getElementById('grossIncome').value);
+            const filingStatus = document.getElementById('filingStatus').value;
+            const stateResidenceCode = document.getElementById('stateResidence').value;
+
+            if (isNaN(grossIncome)) {
+                alert("Please enter a valid gross income.");
+                return;
+            }
+
+            calculateEstimatedTaxLiability(grossIncome, filingStatus, stateResidenceCode);
+        });
+
+        function calculateEstimatedTaxLiability(grossIncome, status, stateCode) {
+
+            let federalTaxes = 0;
+
+            if (status === 'single') {
+                federalTaxes = calculateFederalTaxSingle(grossIncome);
+            } else if (status === 'marriedFilingJointly') {
+                federalTaxes = calculateFederalTaxMarriedFilingJointly(grossIncome);
+            }
+
+            const stateRate = getStateAverageTaxRate(stateCode);
+
+            let stateTaxes = grossIncome * (stateRate / 100);
+            stateTaxes = Math.round(stateTaxes * 100) / 100; // Round to two decimal places
+
+            const totalEstimatedTaxes = federalTaxes + stateTaxes;
+
+            document.getElementById('grossIncomeValue').textContent = grossIncome.toFixed(2);
+            document.getElementById('filingStatusValue').textContent = status.charAt(0).toUpperCase() + status.slice(1);;
+            document.getElementById('stateResidenceValue').textContent = getStateNameFromCode(stateCode) + " (" + stateCode.toUpperCase() + ")";
+            document.getElementById('federalTaxLiability').textContent = federalTaxes.toFixed(2);
+            document.getElementById('stateTaxLiability').textContent = stateTaxes.toFixed(2);
+            document.getElementById('totalEstimatedTaxLiability').textContent = totalEstimatedTaxes.toFixed(2);
+
+            document.getElementById('incomeTaxOutput').classList.remove('hidden');
+        }
+
+        function calculateFederalTaxSingle(income) {
+            let tax = 0;
+
+            if (income <= 10950) {
+                tax = income * 0.1;
+            } else if (income <= 43720) {
+                tax = 1095 + ((income - 10950) * 0.12);
+            } else if (income <= 86500) {
+                tax = 4901 + ((income - 43720) * 0.22);
+            } else if (income <= 172050) {
+                tax = 15845 + ((income - 86500) * 0.24);
+            } else if (income <= 219350) {
+                tax = 34007 + ((income - 172050) * 0.32);
+            } else if (income <= 586350) {
+                tax = 52959 + ((income - 219350) * 0.35);
+            } else {
+                tax = 174371 + ((income - 586350) * 0.37);
+            }
+
+            return Math.round(tax * 100) / 100;
+        }
+
+        function calculateFederalTaxMarriedFilingJointly(income) {
+            let tax = 0;
+
+            if (income <= 21900) {
+                tax = income * 0.1;
+            } else if (income <= 87450) {
+                tax = 2190 + ((income - 21900) * 0.12);
+            } else if (income <= 173050) {
+                tax = 9635 + ((income - 87450) * 0.22);
+            } else if (income <= 346100) {
+                tax = 28291 + ((income - 173050) * 0.24);
+            } else if (income <= 438700) {
+                tax = 57017 + ((income - 346100) * 0.32);
+            } else if (income <= 680750) {
+                tax = 94877 + ((income - 438700) * 0.35);
+            } else {
+                tax = 217827 + ((income - 680750) * 0.37);
+            }
+
+            return Math.round(tax * 100) / 100;
+        }
+
+        function getStateAverageTaxRate(stateCode) { // Simplified average state rates
+            const avgStateRates = {
+                'al': 4, 'ak': 5.69, 'az': 7.73, 'ar': 7.28,
+                'ca': 7.25, 'co': 4.63, 'ct': 6.93, 'de': 0, 'fl': 0,
+                'ga': 4, 'hi': 4, 'id': 6.15, 'il': 3.75,
+                'in': 3.38, 'ia': 6.28, 'ks': 6.5, 'ky': 6.00,
+                'la': 5.94, 'me': 7.15, 'md': 5.3, 'ma': 5.05,
+                'mi': 4.28, 'mn': 7.85, 'ms': 5.6, 'mo': 6.15,
+                'mt': 0, 'ne': 5.94, 'nv': 7.98, 'nh': 0,
+                'nj': 7.2, 'nm': 5.3, 'ny': 8.82, 'nc': 6.75,
+                'nd': 5.75, 'oh': 7.16, 'ok': 4.90, 'or': 0,
+                'pa': 3.07, 'ri': 7, 'sc': 6.00, 'sd': 4.82,
+                'tn': 7.05, 'tx': 0, 'ut': 5.19, 'vt': 6.19,
+                'va': 5.3, 'wa': 7.79, 'wi': 5.43, 'wv': 6.85,
+                'wy': 4
+            };
+            return avgStateRates[stateCode] || 0;
+        }
+
+        function getStateNameFromCode(code) {
+            const stateCodes = {
+                al: "Alabama",
+                ak: "Alaska",
+                az: "Arizona",
+                ar: "Arkansas",
+                ca: "California",
+                co: "Colorado",
+                ct: "Connecticut",
+                de: "Delaware",
+                fl: "Florida",
+                ga: "Georgia",
+                hi: "Hawaii",
+                id: "Idaho",
+                il: "Illinois",
+                in: "Indiana",
+                ia: "Iowa",
+                ks: "Kansas",
+                ky: "Kentucky",
+                la: "Louisiana",
+                me: "Maine",
+                md: "Maryland",
+                ma: "Massachusetts",
+                mi: "Michigan",
+                mn: "Minnesota",
+                ms: "Mississippi",
+                mo: "Missouri",
+                mt: "Montana",
+                ne: "Nebraska",
+                nv: "Nevada",
+                nh: "New Hampshire",
+                nj: "New Jersey",
+                nm: "New Mexico",
+                ny: "New York",
+                nc: "North Carolina",
+                nd: "North Dakota",
+                oh: "Ohio",
+                ok: "Oklahoma",
+                or: "Oregon",
+                pa: "Pennsylvania",
+                ri: "Rhode Island",
+                sc: "South Carolina",
+                sd: "South Dakota",
+                tn: "Tennessee",
+                tx: "Texas",
+                ut: "Utah",
+                vt: "Vermont",
+                va: "Virginia",
+                wa: "Washington",
+                wi: "Wisconsin",
+                wv: "West Virginia",
+                wy: "Wyoming"
+            };
+            return stateCodes[code] || '';
+        }
+
+    </script>
+
+    <footer class="bg-gray-900 text-white py-12 mt-24">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="text-xl font-semibold mb-4">About Us</h4>
+                <p class="text-gray-300">Welcome to the most comprehensive collection of calculators online. Our mission
+                    is to simplify complex calculations and provide users with tools for financial planning, health
+                    monitoring, math operations, and more.</p>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" onclick="showCalculator('investment')"
+                            class="hover:text-blue-500 transition-colors block py-1">Investment Calculator</a></li>
+                    <li><a href="#contact-section" class="hover:text-blue-500 transition-colors block py-1">Contact
+                            Us</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors block py-1">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors block py-1">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Contact Us</h4>
+                <p class="text-gray-300 mb-2"><i class="fa-solid fa-envelope mr-1"></i> contact@calculatorwebsite.com
+                </p>
+                <p class="text-gray-300"><i class="fa-solid fa-phone mr-1"></i> +1 (555) 123-4567</p>
+
+                <!-- Social Icons -->
+                <div class="flex space-x-4 mt-8 justify-center">
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-facebook-square text-white hover:text-blue-500 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-twitter-square text-white hover:text-sky-400 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-instagram-square text-white hover:text-pink-500 transition-colors"></i></a>
+                </div>
+            </div>
+
+        </div> <!-- Grid Container -->
+        <div class="mt-8 border-t border-gray-700 pt-4 text-center">
+            <p class="text-gray-400">© 2024 Calculator Website. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+</body>
+
+</html>

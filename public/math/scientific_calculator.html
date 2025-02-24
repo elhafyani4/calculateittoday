@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Scientific Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: white;
+            /* Light gray background */
+            color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .calculator {
+            background-color: #f3f7fa;
+            /* Very light gray */
+        }
+
+        .button-38 {
+            background-color: #FFFFFF;
+            border: 0;
+            border-radius: .5rem;
+            box-sizing: border-box;
+            color: #111827;
+            font-family: "Inter var", ui-sans-serif, system-ui, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: .875rem;
+            font-weight: 600;
+            line-height: 1.25rem;
+            padding: .75rem 1rem;
+            text-align: center;
+            text-decoration: none #D1D5DB solid;
+            text-decoration-thickness: auto;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        .button-38:hover {
+            background-color: rgb(249, 250, 251);
+        }
+
+        .button-38:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+        }
+
+        .button-38:focus-visible {
+            box-shadow: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <nav class="fixed w-full top-0 z-30 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center font-bold text-xl text-blue-600">
+                <i class="fa-solid fa-dice mr-2"></i> Calculator Hub
+            </a>
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="#finance" class="hover:text-blue-500 transition-colors"><i
+                            class="fa-solid fa-hand-holding-dollar mr-1"></i> Finance</a></li>
+                <li><a href="/fitness" class="hover:text-green-500 transition-colors"><i
+                            class="fa-solid fa-heart-pulse mr-1"></i> Fitness & Health</a></li>
+                <li><a href="#math" class="hover:text-yellow-500 transition-colors"><i
+                            class="fa-solid fa-square-root-variable mr-1"></i> Math</a></li>
+                <li><a href="/utility" class="hover:text-purple-500 transition-colors"><i
+                            class="fa-solid fa-tools mr-1"></i> Utility</a></li>
+            </ul>
+            <button class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div class="w-5xl mx-auto bg-white p-8 mt-24 rounded-xl shadow-md space-y-6 text-center">
+        <div class="calculator rounded-lg shadow-lg p-6 w-3xl text-center">
+            <div id="display" class="display text-right text-3xl p-4 bg-gray-100 rounded mb-4">0</div>
+            <div class="buttons-container grid grid-cols-4 gap-2">
+
+                <!-- Memory Buttons -->
+                <button onclick="memoryStore()" class="button-38 memory-button rounded py-2">MS</button>
+                <button onclick="memoryRecall()" class="button-38 memory-button rounded py-2">MR</button>
+                <button onclick="memoryAdd()" class="button-38 memory-button rounded py-2">M+</button>
+                <button onclick="memorySubtract()" class="button-38 memory-button rounded py-2">M-</button>
+
+                <!-- Scientific Buttons -->
+                <button onclick="appendNumber('pi')" class="button-38 trig-button rounded py-2">π</button>
+                <button onclick="appendNumber('e')" class="button-38 trig-button rounded py-2">e</button>
+                <button onclick="calculateTrigonometry('sin')"
+                    class="button-38 trig-button rounded py-2"><span>sin</span><br>(deg)</button>
+                <button onclick="calculateTrigonometry('cos')"
+                    class="button-38 trig-button rounded py-2"><span>cos</span><br>(deg)</button>
+
+                <button onclick="calculateTrigonometry('tan')"
+                    class="button-38 trig-button rounded py-2"><span>tan</span><br>(deg)</button>
+                <button onclick="appendNumber('^')"
+                    class="button-38 function-button rounded py-2">x<sup>y</sup></button>
+                <button onclick="setOperation('%')" class="button-38 function-button rounded py-2">%</button>
+                <button onclick="deleteLastChar()"
+                    class="button-38 clear-button delete-button rounded py-2">DEL</button>
+
+                <!-- Number Buttons -->
+                <button onclick="appendNumber('7')" class="button-38 number-button rounded py-2">7</button>
+                <button onclick="appendNumber('8')" class="button-38 number-button rounded py-2">8</button>
+                <button onclick="appendNumber('9')" class="button-38 number-button rounded py-2">9</button>
+                <button onclick="setOperation('/')"
+                    class="button-38 operation-button function-button rounded py-2">/</button>
+
+                <button onclick="appendNumber('4')" class="button-38 number-button rounded py-2">4</button>
+                <button onclick="appendNumber('5')" class="button-38 number-button rounded py-2">5</button>
+                <button onclick="appendNumber('6')" class="button-38 number-button rounded py-2">6</button>
+                <button onclick="setOperation('*')"
+                    class="button-38 operation-button function-button rounded py-2">*</button>
+
+                <button onclick="appendNumber('1')" class="button-38 number-button rounded py-2">1</button>
+                <button onclick="appendNumber('2')" class="button-38 number-button rounded py-2">2</button>
+                <button onclick="appendNumber('3')" class="button-38 number-button rounded py-2">3</button>
+                <button onclick="setOperation('-')"
+                    class="button-38 operation-button function-button rounded py-2">-</button>
+
+                <button onclick="appendNumber('0')"
+                    class="button-38 equals-button number-button rounded py-2 col-span-2">0</button>
+                <button onclick="appendNumber('.')" class="button-38 number-button rounded py-2">.</button>
+                <button onclick="clearDisplay()"
+                    class="button-38 equals-button clear-button rounded py-2 col-span-2">C</button>
+                <button onclick="setOperation('+')"
+                    class="button-38 operation-button function-button rounded py-2">+</button>
+
+                <!-- Function Buttons -->
+                <button onclick="calculateTrigonometry('asin')"
+                    class="button-38 trig-button rounded py-2"><span>sin<sup>-1</sup></span><br>(deg)</button>
+                <button onclick="calculateTrigonometry('acos')"
+                    class="button-38 trig-button rounded py-2"><span>cos<sup>-1</sup></span><br>(deg)</button>
+                <button onclick="calculateTrigonometry('atan')"
+                    class="button-38 trig-button rounded py-2"><span>tan<sup>-1</sup></span><br>(deg)</button>
+
+                <button onclick="appendNumber('(')" class="button-38 function-button rounded py-2">(</button>
+                <button onclick="appendNumber(')')" class="button-38 function-button rounded py-2">)</button>
+                <button onclick="calculateLogarithm('log10')"
+                    class="button-38 function-button rounded py-2"><span>log<sub>10</sub></span><br>(base 10)</button>
+
+                <button onclick="calculateExponential()" class="button-38 function-button rounded py-2">eˣ</button>
+                <button onclick="calculateResult()"
+                    class="button-38 equals-button function-button rounded py-2 col-span-2">=</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let currentInput = '';
+        let operation = '';
+        let memoryValue = 0;
+
+        function appendNumber(number) {
+            if (number === '.' && currentInput.includes('.')) return;
+            const specialNumbers = { pi: Math.PI, e: Math.E };
+            if (specialNumbers[number] !== undefined) {
+                number = specialNumbers[number];
+                currentInput += number.toString();
+            } else {
+                currentInput += number;
+            }
+            updateDisplay(currentInput);
+        }
+
+        function setOperation(op) {
+            if (currentInput === '' && op !== '(' && op !== ')') return;
+            if (op === '(' || op === ')') {
+                currentInput += op;
+            } else {
+                currentInput += ` ${op} `;
+            }
+            updateDisplay(currentInput);
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            operation = '';
+            memoryValue = 0;
+            updateDisplay('0');
+        }
+
+        function deleteLastChar() {
+            if (currentInput.length > 1) {
+                currentInput = currentInput.slice(0, -1);
+                updateDisplay(currentInput);
+            } else {
+                clearDisplay();
+            }
+        }
+
+        function calculateResult() {
+            try {
+                currentInput = eval(currentInput).toString();
+                updateDisplay(currentInput);
+            } catch (error) {
+                updateDisplay('Error');
+            }
+        }
+
+        function updateDisplay(value) {
+            display.textContent = value || '0';
+        }
+
+        function memoryStore() {
+            if (currentInput !== '') {
+                memoryValue = parseFloat(currentInput);
+                updateDisplay(`M=${memoryValue}`);
+            }
+        }
+
+        function memoryRecall() {
+            if (memoryValue) {
+                currentInput = memoryValue.toString();
+                updateDisplay(memoryValue);
+            } else { clearDisplay(); }
+        }
+
+        function memoryAdd() {
+            if (currentInput !== '') {
+                memoryValue += parseFloat(currentInput);
+                updateDisplay(`M=${memoryValue}`);
+            }
+        }
+
+        function memorySubtract() {
+            if (currentInput !== '') {
+                memoryValue -= parseFloat(currentInput);
+                updateDisplay(`M=${memoryValue}`);
+            }
+        }
+
+        function calculateTrigonometry(func) {
+            if (currentInput === '') { updateDisplay('Error'); return; }
+            let value = parseFloat(currentInput);
+            switch (func) {
+                case 'sin': currentInput = Math.sin(degToRad(value)).toString(); break;
+                case 'cos': currentInput = Math.cos(degToRad(value)).toString(); break;
+                case 'tan': currentInput = Math.tan(degToRad(value)).toString(); break;
+                case 'asin': currentInput = radToDeg(Math.asin(value)).toString(); break;
+                case 'acos': currentInput = radToDeg(Math.acos(value)).toString(); break;
+                case 'atan': currentInput = radToDeg(Math.atan(value)).toString(); break;
+            }
+            updateDisplay(currentInput);
+        }
+
+        function calculateLogarithm(base) {
+            if (currentInput === '') { updateDisplay('Error'); return; }
+            let value = parseFloat(currentInput);
+            switch (base) {
+                case 'log10': currentInput = Math.log10(value).toString(); break;
+                default: clearDisplay(); return;
+            }
+            updateDisplay(currentInput);
+        }
+
+        function calculateExponential() {
+            if (currentInput === '') { updateDisplay('Error'); return; }
+            let value = parseFloat(currentInput);
+            currentInput = Math.exp(value).toString();
+            updateDisplay(currentInput);
+        }
+
+        function degToRad(degrees) { return degrees * Math.PI / 180; }
+        function radToDeg(radians) { return radians * 180 / Math.PI; }
+
+    </script>
+
+</body>
+
+</html>

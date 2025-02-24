@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator Hub - Your Personal Financial & Utility Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            transition-duration: 300ms;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translatey(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .mortgage-form {
+            @apply bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 space-y-8 max-w-md mx-auto;
+        }
+
+        .advanced-options-container {
+            @apply mt-12 border-t pt-8 text-left;
+        }
+
+        .block mb-2 text-sm font-medium text-gray-900 dark:text-white {
+            @apply font-semibold mb-2 text-gray-700 dark:text-white block;
+        }
+
+        .mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 {
+            @apply shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full rounded-md border-gray-300 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-500 dark:focus:border-blue-500;
+        }
+
+        .toggle-button {
+            @apply bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none;
+        }
+
+        .calculation-results-container {
+            @apply mt-16 p-8 border-t dark:border-gray-700 space-y-6;
+        }
+
+        .result-label {
+            @apply text-lg font-semibold mb-1.5 text-gray-900 dark:text-white;
+        }
+
+        .result-value {
+            @apply text-xl font-bold text-blue-700 dark:text-green-400;
+        }
+
+        .advanced-option-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .collapsible-header:hover+.advanced-option-content,
+        .collapsible-content.opened>* {
+            max-height: 100px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+    <nav class="fixed w-full top-0 z-30 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center font-bold text-xl text-blue-600">
+                <i class="fa-solid fa-calculator mr-2"></i> Calculator Hub
+            </a>
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="#finance" class="hover:text-blue-500 transition-colors"><i
+                            class="fa-solid fa-hand-holding-dollar mr-1"></i> Finance</a></li>
+                <li><a href="/fitness" class="hover:text-green-500 transition-colors"><i
+                            class="fa-solid fa-heart-pulse mr-1"></i> Fitness & Health</a></li>
+                <li><a href="#math" class="hover:text-yellow-500 transition-colors"><i
+                            class="fa-solid fa-square-root-variable mr-1"></i> Math</a></li>
+                <li><a href="#utility" class="hover:text-purple-500 transition-colors"><i
+                            class="fa-solid fa-tools mr-1"></i> Utility</a></li>
+            </ul>
+            <button class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    <div class="mt-24">
+
+
+        <h1 class="text-3xl font-bold mb-8 text-center">Calculate Mortgage</h1>
+        <div id="mortgageFormContainer" class="mortgage-form">
+            <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-md space-y-6">
+                <form id="mortgageCalculator">
+                    <div>
+                        <label for="loanAmountMortgage"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Loan Amount
+                            (Dollars)</label>
+                        <input type="number" id="loanAmountMortgage" placeholder="$500,000"
+                            class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="downPaymentPercentage"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Loan
+                                Term (Years)</label>
+                            <select id="downPaymentPercentage"
+                                class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="10">20</option>
+                                <option value="15">30</option>
+                                <option selected value="20">40</option>
+                                <option value="25">80</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="downPayment"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Interest Rate
+                                (%)</label>
+                            <input type="number" min="0.01" max="50" step="0.01" id="downPayment" placeholder="3.5%"
+                                class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
+                        </div>
+
+
+                    </div>
+
+
+                    <div>
+                        <label for="interestRateMortgage"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Interest Rate
+                            (%)</label>
+                        <input type="number" step="any" id="interestRateMortgage" placeholder="0"
+                            class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required>
+                    </div>
+
+                    <div>
+                        <label for="loanTermMortgage"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Loan Term
+                            (Years)</label>
+                        <select id="loanTermMortgage"
+                            class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="15">15 Years</option>
+                            <option selected value="30">30 Years</option>
+                        </select>
+                    </div>
+
+                    <!-- Collapsible Advanced Options -->
+                    <button onclick="toggleAdvancedOptions()" id="advancedToggleBtn"
+                        class="mt-5 w-full text-left py-2 px-4 rounded-md bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none transition-colors flex items-center justify-between">
+                        <span>Advanced Options</span>
+                        <i class="fa-solid fa-chevron-down ml-auto"></i>
+                    </button>
+
+
+                    <div id="advancedOptionsContainer" class="mt-8 advanced-option-content">
+                        <label for="creditScoreMortgage"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-4">Credit Score
+                            (Optional)</label>
+                        <select id="creditScoreMortgage"
+                            class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3">
+                            <option value="">Select Credit Score</option>
+                            <option value="850-900">Excellent: 850 - 900</option>
+                            <option value="720-849">Good: 720 - 849</option>
+                            <option value="630-719">Fair: 630 - 719</option>
+                            <option value="520-629">Poor: 520 - 629</option>
+                            <option value="<520">Very Poor: &lt; 520</option>
+                        </select>
+
+                        <label for="propertyTaxMortgage"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Property Tax (Monthly
+                            Dollars)</label>
+                        <input type="number" id="propertyTaxMortgage" placeholder="$1,200"
+                            class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3">
+
+                        <label for="homeInsuranceMortgage"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Homeowner Insurance
+                            (Monthly
+                            Dollars)</label>
+                        <input type="number" id="homeInsuranceMortgage" placeholder="$750"
+                            class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-3">
+
+
+                        <div class="flex items-center mb-4">
+                            <input id="pmiEnabledMortgage" type="checkbox" value=""
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="pmiEnabledMortgage"
+                                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Mortgage Insurance
+                                (PMI) Enabled?</label>
+                        </div>
+
+                        <label for="pmiRateMortgage" id="pmiRateLabelMortgage"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-2 hidden">PMI Rate
+                            (%)</label>
+                        <input type="number" step="any" id="pmiRateMortgage" placeholder="0.5"
+                            class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 hidden">
+
+
+                        <div class="flex items-center mb-4">
+                            <input id="hoaEnabledMortgage" type="checkbox" value=""
+                                class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                            <label for="hoaEnabledMortgage"
+                                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">HOA Fees
+                                Enabled?</label>
+                        </div>
+
+
+                        <label for="hoaFeesMortgage" id="hoaFeesLabelMortgage"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-2 hidden">HOA Fees
+                            (Monthly Dollars)</label>
+                        <input type="number" id="hoaFeesMortgage" placeholder="$150"
+                            class="mt-2 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 hidden">
+
+                    </div>
+
+                    <button type="submit"
+                        class="w-full text-white mt-6 py-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center">
+                        Calculate Monthly Payment
+                    </button>
+                </form>
+                <!-- result output-->
+                <div id="mortgageOutputContainer" class="calculation-results-container hidden">
+                    <h3 class="text-xl font-semibold mb-6 text-green-700">Mortgage Summary</h3>
+
+                    <p><span class="result-label">Loan Amount:</span> $<span id="loanAmountResult"></span></p>
+                    <p><span class="result-label">Interest Rate:</span> <span id="interestRateResult">% p.a.</span></p>
+                    <p><span class="result-label">Term:</span> <span id="termYearsResult"> Years</span></p>
+                    <br />
+                    <br />
+                    <div class="flex justify-between items-center">
+                        <span class="result-label"><i class="fa-solid fa-arrow-trend-down mr-2 text-green-500"></i>
+                            Monthly
+                            Mortgage Payment:</span>
+                        <span class="result-value">$<span id="monthlyMortgagePaymentResult">0.00</span></span>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <span class="result-label"><i class="fa-solid fa-chart-line mr-2 text-blue-400"></i> Total
+                            Interest
+                            Payable:</span>
+                        <span class="result-value">$<span id="totalInterestPayableResult">0.00</span></span>
+                    </div>
+
+                    <h3 class="text-lg font-semibold mt-6 mb-4 text-gray-900 dark:text-white border-t pt-4">
+                        Additional Monthly Expenses
+                    </h3>
+                    <div class="flex justify-between items-center">
+                        <span><i class="fa-solid fa-house-circle-check mr-2 text-yellow-500"></i> Property Tax:</span>
+                        <span>$<span id="propertyTaxResult">0.00</span></span>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <span><i class="fa-solid fa-fire-flame-curved mr-2 text-orange-500"></i> Homeowner
+                            Insurance:</span>
+                        <span>$<span id="homeInsuranceResult">0.00</span></span>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <span><i class="fa-solid fa-file-pen mr-2 text-purple-500"></i> PMI:</span>
+                        <span>$<span id="pmiResult">0.00</span></span>
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <span><i class="fa-solid fa-users-gear mr-2 text-teal-500"></i> HOA Fees:</span>
+                        <span>$<span id="hoaFeesResult">0.00</span></span>
+                    </div>
+
+                    <h3 class="text-xl font-semibold mt-8 mb-4 text-green-700">
+                        Total Monthly Payment
+                    </h3>
+                    <p class="flex justify-between items-center space-x-2">
+                        <span><i class="fa-solid fa-arrow-right-to-bracket mr-2 text-red-500"></i> Total:</span>
+                        <span class="result-value">$<span id="totalMonthlyPaymentResult">0.00</span></span>
+                    </p>
+
+                    <!-- Breakdown -->
+                    <div class="mt-6 p-4 bg-gray-100 rounded-md border-l-4 border-blue-300 dark:bg-gray-700">
+                        <h4 class="text-lg font-semibold mb-2">Payment Details:</h4>
+                        <ul class="space-y-1.5">
+                            <li><i class="fa-solid fa-house mr-2 text-green-600"></i> Loan Term: <span
+                                    id="termYearsDetailResult"> Years</span></li>
+                            <li><i class="fa-solid fa-gift-card mr-2 text-blue-400"></i> Total Interest Payable Over
+                                Life of
+                                Loan: $<span id="totalInterestLifeOfLoanResult">$0.00</span></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Mortgage Output -->
+
+        </div>
+
+    </div>
+
+
+    <script>
+        let results = {
+            monthlyMortgagePayment: 0,
+            totalInterestPayable: 0,
+            pmiMonthlyCost: 0,
+            hoaMonthlyCost: 0
+        };
+
+        document.getElementById('mortgageCalculator').addEventListener('submit', function (event) {
+
+
+            event.preventDefault();
+
+            const loanAmount = parseFloat(document.getElementById('loanAmountMortgage').value);
+            const interestRatePercent = parseFloat(document.getElementById('interestRateMortgage').value);
+            const termYears = parseInt(document.getElementById('loanTermMortgage').value);
+
+            if (isNaN(loanAmount) || isNaN(interestRatePercent) || isNaN(termYears)) {
+                alert("Please fill out all required fields correctly.");
+                return;
+            }
+
+            // Convert interest rate to monthly decimal
+            const monthlyInterestDecimal = interestRatePercent / 100 / 12;
+
+            // Number of payments (loan term in months)
+            const n = termYears * 12;
+
+
+            calculateMortgagePayment(loanAmount, monthlyInterestDecimal, n);
+            updateResultsDisplay();
+            document.getElementById('mortgageOutputContainer').classList.remove('hidden');
+        });
+
+
+
+        function calculateMortgagePayment(P, r, n) {
+
+            // Calculate mortgage payment using formula
+            const M = P * (r * Math.pow((1 + r), n)) / ((Math.pow((1 + r), n)) - 1);
+
+            results.monthlyMortgagePayment = parseFloat(M.toFixed(2));
+
+            calculateTotalInterestPayable(P, M, r);
+            updateResultsDisplay();
+        }
+
+        function calculateTotalInterestPayable(principal, monthlyPayment, r) {
+            const totalPaymentsOverTerm = principal * (monthlyPayment / (principal * (r)));
+            results.totalInterestPayable = Math.round((totalPaymentsOverTerm - principal) * 100) / 100;
+            updateResultsDisplay();
+        }
+
+        function updateResultsDisplay() {
+
+            document.getElementById('loanAmountResult').textContent = loanAmountMortgage.value.toLocaleString('en-US');
+            document.getElementById('interestRateResult').textContent = interestRateMortgage.value;
+            document.getElementById('termYearsResult').textContent = loanTermMortgage.value + " Years";
+            document.getElementById('termYearsDetailResult').textContent = loanTermMortgage.value + " Years";
+
+            document.getElementById('monthlyMortgagePaymentResult').textContent = results.monthlyMortgagePayment.toLocaleString();
+            document.getElementById('totalInterestPayableResult').textContent = results.totalInterestPayable.toLocaleString('en-US');
+            document.getElementById('propertyTaxResult').textContent = propertyTaxMortgage.value || '0.00';
+            document.getElementById('homeInsuranceResult').textContent = homeInsuranceMortgage.value || '0.00';
+            document.getElementById('pmiResult').textContent = pmiEnabledMortgage.checked ? (parseFloat(pmiRateMortgage.value) * results.monthlyMortgagePayment / 100).toFixed(2) : '0.00';
+            document.getElementById('hoaFeesResult').textContent = hoaEnabledMortgage.checked ? hoaFeesMortgage.value || '0.00' : '0.00';
+
+            const totalMonthlyPayment = parseFloat(results.monthlyMortgagePayment) +
+                parseFloat(propertyTaxMortgage.value || 0) / 12 +
+                parseFloat(homeInsuranceMortgage.value || 0) / 12 +
+                (pmiEnabledMortgage.checked ? parseFloat(pmiRateMortgage.value * results.monthlyMortgagePayment / 100).toFixed(2) : 0) +
+                (hoaEnabledMortgage.checked ? parseFloat(hoaFeesMortgage.value || 0) : 0);
+            document.getElementById('totalMonthlyPaymentResult').textContent = totalMonthlyPayment.toLocaleString();
+        }
+
+        let advancedOptionsVisible = false;
+
+        function toggleAdvancedOptions() {
+            const container = document.getElementById("advancedOptionsContainer");
+            if (container.style.maxHeight) {
+                container.style.maxHeight = null;
+                advancedToggleBtn.querySelector('.fa-chevron-down').classList.remove('rotate-180');
+                advancedOptionsVisible = false;
+            } else {
+                container.style.maxHeight = '500px'; // Adjust based on content
+                advancedToggleBtn.querySelector('.fa-chevron-down').classList.add('rotate-180');
+                advancedOptionsVisible = true;
+
+                updatePmiVisibility();
+                updateHoaFeesVisibility();
+            }
+        }
+
+        document.getElementById("pmiEnabledMortgage").addEventListener('change', function () {
+            const pmiRateLabel = document.getElementById("pmiRateLabelMortgage");
+            const pmiInput = document.getElementById("pmiRateMortgage");
+
+            if (this.checked) {
+                pmiRateLabel.classList.remove('hidden');
+                pmiInput.classList.remove('hidden');
+                updatePmiVisibility();
+            } else {
+                pmiRateLabel.classList.add('hidden');
+                pmiInput.classList.add('hidden');
+                document.getElementById("pmiResult").textContent = '0.00';
+                results.pmiMonthlyCost = 0;
+                updateResultsDisplay();
+            }
+        });
+
+
+        document.getElementById("hoaEnabledMortgage").addEventListener('change', function () {
+            const hoaFeesLabel = document.getElementById("hoaFeesLabelMortgage");
+            const hoaInput = document.getElementById("hoaFeesMortgage");
+
+            if (this.checked) {
+                hoaFeesLabel.classList.remove('hidden');
+                hoaInput.classList.remove('hidden');
+                updateHoaFeesVisibility();
+            } else {
+                hoaFeesLabel.classList.add('hidden');
+                hoaInput.classList.add('hidden');
+                document.getElementById("hoaFeesResult").textContent = '0.00';
+                results.hoaMonthlyCost = 0;
+                updateResultsDisplay();
+            }
+        });
+    </script>
+
+    <footer class="bg-gray-900 text-white py-12 mt-24">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="text-xl font-semibold mb-4">About Us</h4>
+                <p class="text-gray-300">Welcome to the most comprehensive collection of calculators online. Our mission
+                    is to simplify complex calculations and provide users with tools for financial planning, health
+                    monitoring, math operations, and more.</p>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" onclick="showCalculator('investment')"
+                            class="hover:text-blue-500 transition-colors block py-1">Investment Calculator</a></li>
+                    <li><a href="#contact-section" class="hover:text-blue-500 transition-colors block py-1">Contact
+                            Us</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors block py-1">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors block py-1">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Contact Us</h4>
+                <p class="text-gray-300 mb-2"><i class="fa-solid fa-envelope mr-1"></i> contact@calculatorwebsite.com
+                </p>
+                <p class="text-gray-300"><i class="fa-solid fa-phone mr-1"></i> +1 (555) 123-4567</p>
+
+                <!-- Social Icons -->
+                <div class="flex space-x-4 mt-8 justify-center">
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-facebook-square text-white hover:text-blue-500 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-twitter-square text-white hover:text-sky-400 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-instagram-square text-white hover:text-pink-500 transition-colors"></i></a>
+                </div>
+            </div>
+
+        </div> <!-- Grid Container -->
+        <div class="mt-8 border-t border-gray-700 pt-4 text-center">
+            <p class="text-gray-400">© 2024 Calculator Website. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+</body>
+
+</html>

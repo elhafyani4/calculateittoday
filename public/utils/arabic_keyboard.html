@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ar" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الكتبة العربية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <style type="text/tailwind-config">
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { fontFamily: { 'arabic': ['Noto Sans Arabic', 'sans-serif'] } },
+                colors: {
+                    'keyboard-bg': '#f3f4f6',
+                    'button-hover': '#e0e7ff',
+                    'accent-color': '#a855f7',
+                }
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans Arabic', sans-serif;
+        }
+
+        .keyboard {
+            display: grid;
+            gap: 4px;
+            background-color: #f3f4f6;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            grid-template-columns: repeat(14, 1fr);
+        }
+
+        .keyboard-button {
+            background-color: white;
+            color: #4a5568;
+            padding: 12px 16px;
+            border-radius: 8px;
+            transition: background-color 0.15s;
+            font-family: 'Noto Sans Arabic', sans-serif;
+            box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.08);
+        }
+
+        .keyboard-button:hover {
+            background-color: #e0e7ff;
+        }
+
+        .keyboard-button.active {
+            background-color: #a855f7;
+            color: white;
+            box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1);
+            transform: scale(0.95);
+        }
+
+        textarea.arabic-input {
+            font-family: 'Noto Sans Arabic', sans-serif;
+            direction: rtl;
+            padding-right: 16px;
+            color: black;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 p-8">
+    <div class="w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+
+        <div class="p-6">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">الكتبة العربية</h2>
+            <div class="text-center">
+            <textarea id="arabic-textarea" rows="10" placeholder="اكتب هنا..."
+                class="w-3xl arabic-input p-4 focus:ring-accent-color focus:border-accent-color border-gray-300 rounded-md shadow-sm "></textarea>
+        </div>
+        </div>
+
+        <div class="keyboard p-4 mx-auto max-w-4xl">
+
+            <!-- First Row -->
+            <button data-char="ذ" class="keyboard-button" onclick="addChar(this)">ذ</button>
+            <button data-char="١" class="keyboard-button" onclick="addChar(this)">١</button>
+            <button data-char="٢" class="keyboard-button" onclick="addChar(this)">٢</button>
+            <button data-char="٣" class="keyboard-button" onclick="addChar(this)">٣</button>
+            <button data-char="٤" class="keyboard-button" onclick="addChar(this)">٤</button>
+            <button data-char="٥" class="keyboard-button" onclick="addChar(this)">٥</button>
+            <button data-char="٦" class="keyboard-button" onclick="addChar(this)">٦</button>
+            <button data-char="٧" class="keyboard-button" onclick="addChar(this)">٧</button>
+            <button data-char="٨" class="keyboard-button" onclick="addChar(this)">٨</button>
+            <button data-char="٩" class="keyboard-button" onclick="addChar(this)">٩</button>
+            <button data-char="٠" class="keyboard-button" onclick="addChar(this)">٠</button>
+            <button data-char="-" class="keyboard-button" onclick="addChar(this)">-</button>
+            <button data-char="backspace" class="keyboard-button" style="grid-column: span 2;"
+                onclick="deleteChar()">⌫</button>
+
+            <!-- Second Row -->
+            <button data-char="" class="keyboard-button" onclick="addChar(this)"></button>
+            <button data-char="ض" class="keyboard-button" onclick="addChar(this)">ض</button>
+            <button data-char="ص" class="keyboard-button" onclick="addChar(this)">ص</button>
+            <button data-char="ث" class="keyboard-button" onclick="addChar(this)">ث</button>
+            <button data-char="ق" class="keyboard-button" onclick="addChar(this)">ق</button>
+            <button data-char="ف" class="keyboard-button" onclick="addChar(this)">ف</button>
+            <button data-char="غ" class="keyboard-button" onclick="addChar(this)">غ</button>
+            <button data-char="ع" class="keyboard-button" onclick="addChar(this)">ع</button>
+            <button data-char="ه" class="keyboard-button" onclick="addChar(this)">ه</button>
+            <button data-char="خ" class="keyboard-button" onclick="addChar(this)">خ</button>
+            <button data-char="ح" class="keyboard-button" onclick="addChar(this)">ح</button>
+            <button data-char="ج" class="keyboard-button" onclick="addChar(this)">ج</button>
+            <button data-char="د" class="keyboard-button" onclick="addChar(this)">د</button>
+            <button data-char="" class="keyboard-button" onclick="addChar(this)"></button>
+
+
+            <!-- Third Row -->
+            <button data-char="" class="keyboard-button" onclick="addChar(this)"></button>
+            <button data-char="ش" class="keyboard-button" onclick="addChar(this)">ش</button>
+            <button data-char="س" class="keyboard-button" onclick="addChar(this)">س</button>
+            <button data-char="ي" class="keyboard-button" onclick="addChar(this)">ي</button>
+            <button data-char="ب" class="keyboard-button" onclick="addChar(this)">ب</button>
+            <button data-char="ل" class="keyboard-button" onclick="addChar(this)">ل</button>
+            <button data-char="ا" class="keyboard-button" onclick="addChar(this)">ا</button>
+            <button data-char="ت" class="keyboard-button" onclick="addChar(this)">ت</button>
+            <button data-char="ن" class="keyboard-button" onclick="addChar(this)">ن</button>
+            <button data-char="م" class="keyboard-button" onclick="addChar(this)">م</button>
+            <button data-char="ك" class="keyboard-button" onclick="addChar(this)">ك</button>
+            <button data-char="ط" class="keyboard-button" onclick="addChar(this)">ط</button>
+            <button data-char="newline" class="keyboard-button" style="grid-column: span 2;" onclick="addNewLine()">↵</button>
+
+            <!-- Fourth Row -->
+            <button data-char="" class="keyboard-button" style="grid-column: span 2;"  onclick="addChar(this)"></button>
+            <button data-char="ئ" class="keyboard-button" onclick="addChar(this)">ئ</button>
+            <button data-char="ء" class="keyboard-button" onclick="addChar(this)">ء</button>
+            <button data-char="ؤ" class="keyboard-button" onclick="addChar(this)">ؤ</button>
+            <button data-char="ر" class="keyboard-button" onclick="addChar(this)">ر</button>
+            <button data-char="ى" class="keyboard-button" onclick="addChar(this)">ى</button>
+            <button data-char="ة" class="keyboard-button" onclick="addChar(this)">ة</button>
+            <button data-char="و" class="keyboard-button" onclick="addChar(this)">و</button>
+            <button data-char="ز" class="keyboard-button" onclick="addChar(this)">ز</button>
+            <button data-char="ظ" class="keyboard-button" onclick="addChar(this)">ظ</button>
+            <button data-char="," class="keyboard-button" onclick="addChar(this)">,</button>
+            <button data-char="." class="keyboard-button" onclick="addChar(this)">.</button>
+            <button data-char="" class="keyboard-button" onclick="addChar(this)"></button>
+
+
+            <!-- Space Bar -->
+            <button data-char=" " class="keyboard-button" style="grid-column: span 14;" onclick="addChar(this)">
+            &nbsp;
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function addChar(buttonElement) {
+            const char = buttonElement.getAttribute('data-char');
+            document.getElementById('arabic-textarea').value += char;
+        }
+        document.querySelectorAll('.keyboard-button').forEach(button => {
+            button.addEventListener('mousedown', function () {
+                this.classList.add('active');
+            });
+            button.addEventListener('mouseup', function () {
+                this.classList.remove('active');
+            });
+        });
+
+        function deleteChar() {
+            const textarea = document.getElementById('arabic-textarea');
+            textarea.value = textarea.value.slice(0, -1);
+        }
+
+        function addNewLine() {
+            const textarea = document.getElementById('arabic-textarea');
+            textarea.value += '\n';
+        }
+    </script>
+
+</body>
+
+</html>

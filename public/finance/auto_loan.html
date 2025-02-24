@@ -1,19 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Loan Calculator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Calculator Hub - Your Personal Financial & Utility Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
-    <style>body { font-family: 'Poppins', sans-serif; }</style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            transition-duration: 300ms;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translatey(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-900">
+
+<body class="bg-gray-50 text-gray-900">
+    <nav class="fixed w-full top-0 z-30 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center font-bold text-xl text-blue-600">
+                <i class="fa-solid fa-calculator mr-2"></i> Calculator Hub
+            </a>
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="#finance" class="hover:text-blue-500 transition-colors"><i
+                            class="fa-solid fa-hand-holding-dollar mr-1"></i> Finance</a></li>
+                <li><a href="/fitness" class="hover:text-green-500 transition-colors"><i
+                            class="fa-solid fa-heart-pulse mr-1"></i> Fitness & Health</a></li>
+                <li><a href="#math" class="hover:text-yellow-500 transition-colors"><i
+                            class="fa-solid fa-square-root-variable mr-1"></i> Math</a></li>
+                <li><a href="#utility" class="hover:text-purple-500 transition-colors"><i
+                            class="fa-solid fa-tools mr-1"></i> Utility</a></li>
+            </ul>
+            <button class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
 
 <div class="container mx-auto px-6 py-24">
-    <h1 class="text-3xl md:text-5xl font-bold mb-8 text-center">Auto Loan Calculator</h1>
+    <h1 class="text-3xl font-bold mb-8 text-center">Auto Loan Calculator</h1>
 
-    <form id="autoLoanForm" class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-md space-y-6">
+    <form id="autoLoanForm" class="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-md space-y-6">
         <div>
             <label for="carPrice" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Car Price</label>
             <input type="number" id="carPrice" placeholder="$15,000" min="0"
@@ -45,14 +89,17 @@
                    required>
         </div>
 
-        <button type="submit" class="w-full py-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center">Calculate Monthly Payment</button>
+        <button type="submit" class="w-full text-white py-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center">Calculate Monthly Payment</button>
+
+
+        <div id="loanOutput" class="mt-12 hidden">
+            <h2 class="text-xl font-semibold mb-4">Loan Summary</h2>
+            <p><strong>Monthly Payment:</strong> <span id="monthlyPayment">$0.00</span></p>
+            <p><strong>Total Loan Amount:</strong> <span id="loanAmount">$0.00</span></p>
+        </div>
     </form>
 
-    <div id="loanOutput" class="mt-12 hidden">
-        <h2 class="text-xl font-semibold mb-4">Loan Summary</h2>
-        <p><strong>Monthly Payment:</strong> <span id="monthlyPayment">$0.00</span></p>
-        <p><strong>Total Loan Amount:</strong> <span id="loanAmount">$0.00</span></p>
-    </div>
+    
 
 </div>
 

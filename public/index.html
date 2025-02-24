@@ -56,7 +56,7 @@
     </nav>
 
     <section id="hero" class="relative flex items-center justify-center bg-cover bg-center"
-        style="background-image: url('https://picsum.photos/1920/1080?calculator=hero'); height: 40vh;">
+        style="background-image: url('/assets/image.png'); height: 40vh;">
         <div class="absolute inset-0 bg-black opacity-50"></div>
         <div class="container mx-auto px-6 text-center relative z-10">
             <h1 class="text-white font-bold text-4xl md:text-6xl mb-4 animate-fade-in">Welcome to Calculator Hub</h1>
@@ -65,124 +65,7 @@
         </div>
     </section>
 
-    <section id="finance" class="py-24 bg-blue-50">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold mb-12 text-gray-800"><i class="fa-solid fa-hand-holding-dollar mr-2"></i>
-                Finance Calculators</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-lg mx-auto">
-                <!-- Simple Interest -->
-                <div class="bg-white p-6 rounded-xl shadow-md hover:bg-green-50 calculator-card transition-transform duration-300 transform translate-y-0"
-                    style="animation-delay: 1s;">
-                    <i class="fa-solid fa-percent text-blue-500 block mb-4"></i>
-                    <h3 class="font-semibold text-lg mb-2">Simple Interest</h3>
-                    <form id="simple-interest-form">
-                        <div class="mb-3"><label for="principal"
-                                class="block text-sm font-medium text-gray-700">Principal Amount:</label><input
-                                type="number" id="principal" placeholder="Enter principal amount"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
-                        <div class="mb-3"><label for="rate" class="block text-sm font-medium text-gray-700">Rate (in
-                                %):</label><input type="number" id="rate" placeholder="Enter rate in %"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
-                        <div class="mb-3"><label for="time" class="block text-sm font-medium text-gray-700">Time
-                                (years):</label><input type="number" id="time" placeholder="Enter time in years"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
-                        <button type="submit"
-                            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">Calculate</button>
-                    </form>
-                    <p id="simple-interest-result" class="mt-4 text-red-600"></p>
-                </div>
-
-                <!-- Compound Interest -->
-                <div
-                    class="bg-white p-6 rounded-xl shadow-md hover:bg-blue-50 calculator-card transition-transform duration-300 transform translate-y-0">
-                    <i class="fa-solid fa-chart-line text-green-500 block mb-4"></i>
-                    <h3 class="font-semibold text-lg mb-2">Compound Interest</h3>
-                    <form id="compound-interest-form">
-                        <div class="mb-3"><label for="principal-ci"
-                                class="block text-sm font-medium text-gray-700">Principal Amount:</label><input
-                                type="number" id="principal-ci" placeholder="Enter principal amount"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
-                        <div class="mb-3"><label for="rate-ci" class="block text-sm font-medium text-gray-700">Rate (in
-                                %):</label><input type="number" id="rate-ci" placeholder="Enter rate in %"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
-                        <div class="mb-3"><label for="time-ci-years"
-                                class="block text-sm font-medium text-gray-700">Time (years):</label><input
-                                type="number" id="time-ci-years" placeholder="Enter time in years"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
-                        <div class="mb-3"><label for="compound-freq"
-                                class="block text-sm font-medium text-gray-700">Compounded (annually,
-                                semi-annually):</label><select id="compound-freq"
-                                placeholder="Select compounding frequency"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                <option value="annually">Annually</option>
-                                <option value="semi-annually">Semi-Annually</option>
-                            </select></div>
-                        <button type="submit"
-                            class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">Calculate</button>
-                    </form>
-                    <p id="compound-interest-result" class="mt-4 text-red-600"></p>
-                </div>
-
-                <!-- Loan EMI Calculator -->
-                <div
-                    class="bg-white p-6 rounded-xl shadow-md hover:bg-blue-50 calculator-card transition-transform duration-300 transform translate-y-0">
-                    <i class="fa-solid fa-house-chimney-user text-purple-500 block mb-4"></i>
-                    <h3 class="font-semibold text-lg mb-2">Loan EMI Calculator</h3>
-                    <form id="emi-form">
-                        <div class="mb-3"><label for="loan-principal"
-                                class="block text-sm font-medium text-gray-700">Loan Amount:</label><input type="number"
-                                id="loan-principal" placeholder="Enter loan amount"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
-                        <div class="mb-3"><label for="interest-rate-loan"
-                                class="block text-sm font-medium text-gray-700">Interest Rate (in %):</label><input
-                                type="number" id="interest-rate-loan" placeholder="Enter interest rate in %"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
-                        <div class="mb-3"><label for="loan-time-years"
-                                class="block text-sm font-medium text-gray-700">Loan Term (years):</label><input
-                                type="number" id="loan-time-years" placeholder="Enter loan term in years"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
-                        <button type="submit"
-                            class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">Calculate
-                            EMI</button>
-                    </form>
-                    <p id="emi-result" class="mt-4 text-red-600"></p>
-                </div>
-
-                <!-- Currency Converter -->
-                <div
-                    class="bg-white p-6 rounded-xl shadow-md hover:bg-blue-50 calculator-card transition-transform duration-300 transform translate-y-0">
-                    <i class="fa-solid fa-sack-dollar text-yellow-500 block mb-4"></i>
-                    <h3 class="font-semibold text-lg mb-2">Currency Converter</h3>
-                    <form id="currency-converter-form">
-                        <div class="mb-3"><label for="amount-to-convert"
-                                class="block text-sm font-medium text-gray-700">Amount:</label><input type="number"
-                                id="amount-to-convert" placeholder="Enter amount to convert"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
-                        <div class="mb-3"><label for="currency-from"
-                                class="block text-sm font-medium text-gray-700">From Currency:</label><select
-                                id="currency-from" placeholder="Select currency to convert from"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                <option value="USD">USD</option>
-                                <option value="EUR">EUR</option>
-                                <option value="GBP">GBP</option>
-                            </select></div>
-                        <div class="mb-3"><label for="currency-to" class="block text-sm font-medium text-gray-700">To
-                                Currency:</label><select id="currency-to" placeholder="Select currency to convert to"
-                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                                <option value="USD">USD</option>
-                                <option value="EUR">EUR</option>
-                                <option value="GBP">GBP</option>
-                            </select></div>
-                        <button type="submit"
-                            class="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">Convert
-                            Currency</button>
-                    </form>
-                    <p id="currency-result" class="mt-4 text-red-600"></p>
-                </div>
-
-    </section>
-
-    <section id="calculator-links" class="py-24 bg-gray-100">
+    <section id="calculator-links" class="py-8 bg-gray-100">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold mb-12 text-center">Calculator Categories</h2>
 
@@ -203,21 +86,23 @@
                         <li><a href="/finance/compound-interest-calculator"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Compound Interest
                                 Calculator</a></li>
+                        <li><a href="/finance/currency-converter"
+                                class="text-blue-600 hover:text-blue-800 transition-colors">Currency Converter</a></li>
                         <li><a href="/finance-calculator"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Finance Calculator</a></li>
-                        <li><a href="/income-tax-calculator"
+                        <li><a href="/finance/tax-income-calculator"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Income Tax Calculator</a>
                         </li>
-                        <li><a href="/inflation-calculator"
+                        <li><a href="/finance/inflation-calculator"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Inflation Calculator</a>
                         </li>
                         <li><a href="/interest-calculator"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Interest Calculator</a></li>
                         <li><a href="/loan-calculator" class="text-blue-600 hover:text-blue-800 transition-colors">Loan
                                 Calculator</a></li>
-                        <li><a href="/mortgage-calculator"
+                        <li><a href="/finance/mortgage-calculator"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Mortgage Calculator</a></li>
-                        <li><a href="/retirement-calculator"
+                        <li><a href="/finance/retirement-calculator"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Retirement Calculator</a>
                         </li>
                         <li><a href="/sales-tax-calculator"
@@ -261,10 +146,10 @@
                         <li><a href="/percentage-calculator"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Percentage Calculator</a>
                         </li>
-                        <li><a href="/random-number-generator"
+                        <li><a href="/math/random-number-generator"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Random Number Generator</a>
                         </li>
-                        <li><a href="/scientific-calculator"
+                        <li><a href="/math/scientific-calculator"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Scientific Calculator</a>
                         </li>
                         <li><a href="/standard-deviation-calculator"
@@ -282,7 +167,7 @@
                     <h3 class="font-semibold text-lg mb-4"><i class="fa-solid fa-gear mr-2 text-purple-500"></i> Other
                         Calculators</h3>
                     <ul class="list-disc list-inside space-y-2 text-sm">
-                        <li><a href="/age-calculator" class="text-blue-600 hover:text-blue-800 transition-colors">Age
+                        <li><a href="/utilities/age-calculator" class="text-blue-600 hover:text-blue-800 transition-colors">Age
                                 Calculator</a></li>
                         <li><a href="/concrete-calculator"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Concrete Volume
@@ -296,10 +181,10 @@
                         </li>
                         <li><a href="/hours-calculator" class="text-blue-600 hover:text-blue-800 transition-colors">Time
                                 & Hours Calculator</a></li>
-                        <li><a href="/password-generator"
+                        <li><a href="/utilities/password-generator"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Password Generator Tool</a>
                         </li>
-                        <li><a href="/time-zone-calculator"
+                        <li><a href="/utilities/time-converter"
                                 class="text-blue-600 hover:text-blue-800 transition-colors">Time Zone Converter</a></li>
                     </ul>
                 </div>
@@ -307,6 +192,125 @@
             </div> <!-- End of Grid -->
         </div> <!-- Container -->
     </section>
+
+    <section id="finance" class="py-24 bg-blue-50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-12 text-gray-800"><i class="fa-solid fa-hand-holding-dollar mr-2"></i>
+                Finance Calculators</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-screen-lg mx-auto">
+                <!-- Simple Interest -->
+                <div class="bg-white p-6 rounded-xl shadow-md  calculator-card transition-transform duration-300 transform translate-y-0"
+                    style="animation-delay: 1s;">
+                    <i class="fa-solid fa-percent text-blue-500 block mb-4"></i>
+                    <h3 class="font-semibold text-lg mb-2">Simple Interest</h3>
+                    <form id="simple-interest-form">
+                        <div class="mb-3"><label for="principal"
+                                class="block text-sm font-medium text-gray-700">Principal Amount:</label><input
+                                type="number" id="principal" placeholder="Enter principal amount"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="rate" class="block text-sm font-medium text-gray-700">Rate (in
+                                %):</label><input type="number" id="rate" placeholder="Enter rate in %"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="time" class="block text-sm font-medium text-gray-700">Time
+                                (years):</label><input type="number" id="time" placeholder="Enter time in years"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <button type="submit"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">Calculate</button>
+                    </form>
+                    <p id="simple-interest-result" class="mt-4 text-red-600"></p>
+                </div>
+
+                <!-- Compound Interest -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow-md  calculator-card transition-transform duration-300 transform translate-y-0">
+                    <i class="fa-solid fa-chart-line text-green-500 block mb-4"></i>
+                    <h3 class="font-semibold text-lg mb-2">Compound Interest</h3>
+                    <form id="compound-interest-form">
+                        <div class="mb-3"><label for="principal-ci"
+                                class="block text-sm font-medium text-gray-700">Principal Amount:</label><input
+                                type="number" id="principal-ci" placeholder="Enter principal amount"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="rate-ci" class="block text-sm font-medium text-gray-700">Rate (in
+                                %):</label><input type="number" id="rate-ci" placeholder="Enter rate in %"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="time-ci-years"
+                                class="block text-sm font-medium text-gray-700">Time (years):</label><input
+                                type="number" id="time-ci-years" placeholder="Enter time in years"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="compound-freq"
+                                class="block text-sm font-medium text-gray-700">Compounded (annually,
+                                semi-annually):</label><select id="compound-freq"
+                                placeholder="Select compounding frequency"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <option value="annually">Annually</option>
+                                <option value="semi-annually">Semi-Annually</option>
+                            </select></div>
+                        <button type="submit"
+                            class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">Calculate</button>
+                    </form>
+                    <p id="compound-interest-result" class="mt-4 text-red-600"></p>
+                </div>
+
+                <!-- Loan EMI Calculator -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow-md  calculator-card transition-transform duration-300 transform translate-y-0">
+                    <i class="fa-solid fa-house-chimney-user text-purple-500 block mb-4"></i>
+                    <h3 class="font-semibold text-lg mb-2">Loan EMI Calculator</h3>
+                    <form id="emi-form">
+                        <div class="mb-3"><label for="loan-principal"
+                                class="block text-sm font-medium text-gray-700">Loan Amount:</label><input type="number"
+                                id="loan-principal" placeholder="Enter loan amount"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="interest-rate-loan"
+                                class="block text-sm font-medium text-gray-700">Interest Rate (in %):</label><input
+                                type="number" id="interest-rate-loan" placeholder="Enter interest rate in %"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="loan-time-years"
+                                class="block text-sm font-medium text-gray-700">Loan Term (years):</label><input
+                                type="number" id="loan-time-years" placeholder="Enter loan term in years"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <button type="submit"
+                            class="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">Calculate
+                            EMI</button>
+                    </form>
+                    <p id="emi-result" class="mt-4 text-red-600"></p>
+                </div>
+
+                <!-- Currency Converter -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow-md  calculator-card transition-transform duration-300 transform translate-y-0">
+                    <i class="fa-solid fa-sack-dollar text-yellow-500 block mb-4"></i>
+                    <h3 class="font-semibold text-lg mb-2">Currency Converter</h3>
+                    <form id="currency-converter-form">
+                        <div class="mb-3"><label for="amount-to-convert"
+                                class="block text-sm font-medium text-gray-700">Amount:</label><input type="number"
+                                id="amount-to-convert" placeholder="Enter amount to convert"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></div>
+                        <div class="mb-3"><label for="currency-from"
+                                class="block text-sm font-medium text-gray-700">From Currency:</label><select
+                                id="currency-from" placeholder="Select currency to convert from"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                                <option value="GBP">GBP</option>
+                            </select></div>
+                        <div class="mb-3"><label for="currency-to" class="block text-sm font-medium text-gray-700">To
+                                Currency:</label><select id="currency-to" placeholder="Select currency to convert to"
+                                class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <option value="USD">USD</option>
+                                <option value="EUR">EUR</option>
+                                <option value="GBP">GBP</option>
+                            </select></div>
+                        <button type="submit"
+                            class="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold py-2 px-4 rounded-full transition-colors">Convert
+                            Currency</button>
+                    </form>
+                    <p id="currency-result" class="mt-4 text-red-600"></p>
+                </div>
+
+    </section>
+
+   
 
     <!-- Financial Planning Section -->
     <!-- Footer Section -->
