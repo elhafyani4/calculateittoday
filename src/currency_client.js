@@ -3,9 +3,6 @@ import fetch from 'node-fetch'; // Use 'node-fetch' for making HTTP requests in 
 class CurrencyExchangeAPIClient {
     constructor(baseUrl) {
         this.baseUrl = baseUrl;
-
-
-        
     };
 
     getCurrencyData = async function (currencyCode) {
@@ -26,8 +23,7 @@ class CurrencyExchangeAPIClient {
         }
     };
 
-    getCurrencies = async function()
-    {
+    getCurrencies = async function () {
         const url = `${this.baseUrl}/currencies.json`;
 
         try {
@@ -46,4 +42,4 @@ class CurrencyExchangeAPIClient {
     }
 }
 
-export default CurrencyExchangeAPIClient; // Export the class for use in other modules
+export default CurrencyExchangeAPIClient;

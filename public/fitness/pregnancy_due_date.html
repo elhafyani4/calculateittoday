@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregnancy Due Date Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <style>
+        body { font-family: 'Nunito Sans', sans-serif; }
+        .nav-gradient {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+        }
+        @keyframes float-bob {
+            0%, 100% { transform: translateY(0); opacity: 1;}
+            50% { transform: translateY(-10px); opacity: 0.9; }
+        }
+        .animate-float {
+            animation: float-bob 3s ease-in-out infinite;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<nav class="nav-gradient py-4 sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+        <a href="#" class="text-xl font-bold text-white">Due Date Calculator</a>
+        <!-- Mobile Menu Button (Hamburger) -->
+        <button id="mobile-menu-button" class="md:hidden focus:outline-none text-white">
+            <i data-lucide="menu"></i>
+        </button>
+    </div>
+
+     <!-- Mobile Menu -->
+    <div class="hidden md:flex items-center space-x-6">
+         <a href="#" class="hover:text-gray-100 transition-colors">Calculator</a>
+          <a href="#about" class="hover:text-gray-100 transition-colors">About</a>
+        <!-- Add more menu links here if needed -->
+    </div>
+
+     <!-- Full-Screen Mobile Menu (Hidden by Default) -->
+    <div id="mobile-menu-fullscreen" class="hidden fixed inset-0 bg-blue-900 text-white p-6 md:hidden z-50">
+         <button onclick="closeMobileMenu()" class="absolute top-4 right-4 focus:outline-none"><i data-lucide="x"></i></button>
+        <div class="flex flex-col space-y-8 mt-12 items-center justify-center h-full text-xl font-semibold">
+             <a href="#" onclick="closeMobileMenu()">Calculator</a>
+            <a href="#about" onclick="closeMobileMenu()" >About</a>
+            <!-- Add more mobile menu links here if needed -->
+        </div>
+    </div>
+
+     <script>
+          lucide.createIcons();
+
+         const mobileMenuButton = document.getElementById('mobile-menu-button');
+         const mobileMenuFullscreen = document.getElementById('mobile-menu-fullscreen');
+
+         mobileMenuButton.addEventListener('click', () => {
+             mobileMenuFullscreen.classList.remove('hidden');
+         });
+
+        function closeMobileMenu() {
+            mobileMenuFullscreen.classList.add('hidden');
+        }
+     </script>
+</nav>
+
+
+<main class="container mx-auto px-6 py-24">
+    <section id="calculator-section" class="bg-white rounded-xl shadow-lg p-10 md:p-16 mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8">Calculate Your Due Date</h2>
+
+         <div>
+            <label for="calculation-method" class="block text-gray-700 text-sm font-bold mb-4">Choose Calculation Method:</label>
+            <select id="calculation-method" class="shadow appearance-none border rounded w-full py-3 px-4 pr-8 leading-tight focus:outline-none focus:shadow-outline bg-white">
+                <option value="conception-date">Estimated Conception Date</option>
+                <option value="first-day-lmp">First Day of Last Period (LMP)</option>
+            </select>
+        </div>
+
+         <form id="dueDateForm" class="mt-8 space-y-6">
+
+             <!-- For "Conception Date" -->
+            <div id="conception-date-section">
+                <label for="conception-date-input" class="block text-gray-700 text-sm font-bold mb-2">Estimated Conception Date:</label>
+                 <input type="date" id="conception-date-input" name="conception-date" class="shadow appearance-none border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:shadow-outline bg-white">
+            </div>
+
+             <!-- For "First Day of Last Period (LMP)" -->
+            <div id="first-day-lmp-section" style="display:none;">
+                <label for="lmp-date-input" class="block text-gray-700 text-sm font-bold mb-2">Date of First Day of Last Menstrual Period:</label>
+                 <input type="date" id="lmp-date-input" name="lmp-date" class="shadow appearance-none border rounded w-full py-3 px-4 leading-tight focus:outline-none focus:shadow-outline bg-white">
+            </div>
+
+        </form>
+
+
+         <button id="calculateBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline w-full mt-8">Calculate Due Date</button>
+
+          <div id="resultArea" class="hidden mt-12 p-4 bg-gray-50 border-l-4 border-blue-500">
+            <h3 class="text-xl font-bold text-gray-900 mb-2">Estimated Due Date:</h3>
+             <p id="dueDateResultElement"></p>
+        </div>
+
+         <script>
+              const calculationMethodSelect = document.getElementById('calculation-method');
+              const conceptionSection = document.getElementById('conception-date-section');
+               const lmpSection = document.getElementById('first-day-lmp-section');
+              let selectedCalculationMethod = 'conception-date';
+
+            calculationMethodSelect.addEventListener('change', function() {
+                selectedCalculationMethod = this.value;
+                 if (selectedCalculationMethod === 'conception-date') {
+                    conceptionSection.style.display = '';
+                     lmpSection.style.display = 'none';
+                } else if (selectedCalculationMethod === 'first-day-lmp') {
+                     conceptionSection.style.display = 'none';
+                     lmpSection.style.display = '';
+                }
+            });
+
+
+             const calculateBtn = document.getElementById('calculateBtn');
+              const resultArea = document.getElementById('resultArea');
+               const dueDateResultElement = document.getElementById('dueDateResultElement');
+
+            calculateBtn.addEventListener('click', function() {
+                 let selectedDate;
+                  if (selectedCalculationMethod === 'conception-date') {
+                     selectedDate = new Date(document.getElementById('conception-date-input').value);
+                } else if (selectedCalculationMethod === 'first-day-lmp') {
+                    selectedDate = new Date(document.getElementById('lmp-date-input').value);
+                     const daysToAdd = 40 * 7; // Average pregnancy is approximately 40 weeks
+                      selectedDate.setDate(selectedDate.getDate() + daysToAdd);
+                }
+
+                 if (!selectedDate || isNaN(selectedDate.getTime())) {
+                    alert("Please enter a valid date.");
+                    return;
+                }
+
+
+               resultArea.classList.remove('hidden');
+               dueDateResultElement.textContent = formatDate(selectedDate);
+
+            });
+
+
+             function formatDate(date) {
+                 const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                  return date.toLocaleDateString(undefined, options);
+            }
+         </script>
+    </section>
+
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <aside id="sidebar" class="bg-gray-50 rounded-xl shadow-lg p-6 mb-8">
+             <h3 class="text-xl font-semibold text-gray-900 mb-4">Why Calculate Your Due Date?</h3>
+            <p class="text-gray-700 leading-relaxed mb-4">Your due date is an estimate of when your baby will be born. It helps you plan for pregnancy, understand fetal development milestones, and prepare mentally and physically for childbirth.</p>
+
+             <ul class="list-disc list-inside text-gray-600">
+                <li>Plan medical check-ups</li>
+                 <li>Pack nursery supplies</li>
+                  <li>Prepare yourself emotionally</li>
+            </ul>
+        </aside>
+
+         <section id="about-section" class="bg-white rounded-xl shadow-lg p-8 mb-8">
+             <h2 id="about" class="text-3xl font-bold text-gray-900 mb-6">About Due Date Calculator</h2>
+            <p class="text-gray-700 leading-relaxed mb-4">This simple calculator is designed to help you estimate your due date based on either the estimated conception date or the first day of your last menstrual period (LMP). Please note that this is an estimation and actual delivery dates can vary.</p>
+
+             <h3 class="text-lg font-semibold text-gray-900 mb-2">How Accurate Is It?</h3>
+            <p class="text-gray-600 leading-relaxed">
+                The accuracy of the due date depends on several factors:
+                 <ul class="list-disc list-inside mt-2 text-gray-700 leading-loose">
+                    <li>Accuracy of conception or LMP date</li>
+                     <li>Variance in pregnancy duration (average is about 40 weeks)</li>
+                      <li>Fetal development timeline can be individualized</li>
+                </ul>
+            </p>
+
+             <h3 class="text-lg font-semibold text-gray-900 mt-4 mb-2">Disclaimer</h3>
+            <p class="text-sm text-gray-600 leading-relaxed">
+                 This calculator is for general informational purposes only. It does not replace professional medical advice.
+                  Always consult with a healthcare provider for personalized pregnancy care and concerns.
+            </p>
+        </section>
+
+    </div>
+
+
+</main>
+
+
+
+
+<footer class="bg-blue-900 text-white py-8 mt-16">
+     <div class="container mx-auto px-6 flex justify-between items-center">
+         <p>&copy; 2024 Due Date Calculator. All rights reserved.</p>
+        <ul class="flex space-x-4">
+             <li><a href="#" class="hover:text-gray-100">Terms of Service</a></li>
+              <li><a href="#" class="hover:text-gray-100">Privacy Policy</a></li>
+        </ul>
+    </div>
+</footer>
+
+</body>
+</html>

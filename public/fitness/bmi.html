@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,13 +9,17 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.345.1/lucide.min.js"></script>
     <style>
-        body { font-family: 'Poppins', sans-serif; }
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
         .bmi-card {
             border-radius: 2rem;
             background-color: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px -4px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.1);
         }
+
         .bmi-button {
             transition-property: background-color, transform;
             transition-duration: 150ms;
@@ -22,14 +27,17 @@
             padding-inline: 2rem;
             font-weight: 600;
             letter-spacing: -0.04em;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
+
         .bmi-button:hover {
             transform: scale(1.05);
         }
+
         .input-group {
             @apply relative rounded-lg border bg-white/70 backdrop-blur-sm;
         }
+
         input[type="number"]::-webkit-inner-spin-button,
         input[type="number"]::-webkit-outer-spin-button {
             -webkit-appearance: none;
@@ -37,126 +45,128 @@
         }
     </style>
 </head>
+
 <body class="bg-gray-100 text-gray-900">
 
-<div class="fixed top-4 left-4 md:left-6 lg:left-8 p-2 bg-white/75 backdrop-blur-sm rounded-full">
-    <a href="/" class="flex items-center space-x-2 hover:text-blue-600 transition-colors duration-300">
-        <i data-lucide="arrow-left" class="w-4 h-4"></i>
-        <span>Back</span>
-    </a>
-</div>
-
-<div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="bmi-card p-8 md:p-12 max-w-md w-full mx-auto space-y-8">
-
-        <header>
-            <h1 class="text-3xl font-bold text-center mb-4">BMI Calculator</h1>
-            <p class="text-gray-600 text-lg text-center">Calculate your Body Mass Index</p>
-        </header>
-
-        <form id="bmiForm" class="space-y-6">
-            <div class="grid grid-cols-2 gap-4 md:gap-8">
-
-                <div>
-                    <label for="weightKg" class="block text-sm font-medium text-gray-700">Weight (kg)</label>
-                    <input type="number" id="weightKg" name="weightKg" placeholder="e.g., 75"
-                        class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                </div>
-
-                <div>
-                    <label for="heightUnit" class="block text-sm font-medium text-gray-700">Height Unit</label>
-                    <select id="heightUnit" name="heightUnit"
-                        class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                        <option value="meters">Meters</option>
-                        <option value="feet-inches">Feet & Inches</option>
-                    </select>
-                </div>
-
-            </div>
-
-             <div id="metricHeight" class="grid grid-cols-2 gap-4 md:gap-8">
-                <div>
-                    <label for="heightMeters" class="block text-sm font-medium text-gray-700">Height (m)</label>
-                    <input type="number" step="any" id="heightMeters" name="heightMeters" placeholder="e.g., 1.8"
-                        class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                </div>
-            </div>
-
-             <div id="imperialHeight" style="display:none;" class="grid grid-cols-2 gap-4 md:gap-8">
-                 <div>
-                    <label for="heightFeet" class="block text-sm font-medium text-gray-700">Height (ft)</label>
-                     <input type="number" id="heightFeet" name="heightFeet"
-                         placeholder="e.g., 5" class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                 </div>
-                <div>
-                    <label for="heightInches" class="block text-sm font-medium text-gray-700">Height (in)</label>
-                     <input type="number" id="heightInches" name="heightInches"
-                         placeholder="e.g., 10" class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                 </div>
-            </div>
-
-             <button type="submit" id="calculateButton"
-                class="bmi-button bg-blue-600 text-white hover:bg-blue-700 mx-auto inline-block">Calculate BMI</button>
-        </form>
-
-
-         <section id="resultSection" style="display:none;" class="space-y-4">
-            <div class="bg-green-50 p-4 rounded-md shadow-sm flex items-center space-x-2 text-gray-800">
-                <i data-lucide="check-circle" class="w-6 h-6"></i>
-                 <p id="resultMessage">Your BMI is: 23.9</p>
-            </div>
-
-             <div class="bg-blue-50 p-4 rounded-md shadow-sm text-gray-800">
-                <h3 class="font-semibold mb-1">Interpretation:</h3>
-                 <ul id="interpretationList" class="list-disc pl-6"></ul>
-            </div>
-
-        </section>
-
-
+    <div class="fixed top-4 left-4 md:left-6 lg:left-8 p-2 bg-white/75 backdrop-blur-sm rounded-full">
+        <a href="/" class="flex items-center space-x-2 hover:text-blue-600 transition-colors duration-300">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Back</span>
+        </a>
     </div>
-</div>
 
-<script type="module">
+    <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="bmi-card p-8 md:p-12 max-w-md w-full mx-auto space-y-8">
 
-    import { lucideCreate } from 'https://unpkg.com/lucide@latest';
+            <header>
+                <h1 class="text-3xl font-bold text-center mb-4">BMI Calculator</h1>
+                <p class="text-gray-600 text-lg text-center">Calculate your Body Mass Index</p>
+            </header>
 
-    const icons = ['arrow-left', 'check-circle'];
+            <form id="bmiForm" class="space-y-6">
+                <div class="grid grid-cols-2 gap-4 md:gap-8">
 
-    for (const icon of icons) {
-      lucideCreate(icon, {
-        target: document.querySelector(`[data-lucide="${icon}"]`),
-      });
-    }
+                    <div>
+                        <label for="weightKg" class="block text-sm font-medium text-gray-700">Weight (kg)</label>
+                        <input type="number" id="weightKg" name="weightKg" placeholder="e.g., 75"
+                            class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+
+                    <div>
+                        <label for="heightUnit" class="block text-sm font-medium text-gray-700">Height Unit</label>
+                        <select id="heightUnit" name="heightUnit"
+                            class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            <option value="meters">Meters</option>
+                            <option value="feet-inches">Feet & Inches</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div id="metricHeight" class="grid grid-cols-2 gap-4 md:gap-8">
+                    <div>
+                        <label for="heightMeters" class="block text-sm font-medium text-gray-700">Height (m)</label>
+                        <input type="number" step="any" id="heightMeters" name="heightMeters" placeholder="e.g., 1.8"
+                            class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+                </div>
+
+                <div id="imperialHeight" style="display:none;" class="grid grid-cols-2 gap-4 md:gap-8">
+                    <div>
+                        <label for="heightFeet" class="block text-sm font-medium text-gray-700">Height (ft)</label>
+                        <input type="number" id="heightFeet" name="heightFeet" placeholder="e.g., 5"
+                            class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label for="heightInches" class="block text-sm font-medium text-gray-700">Height (in)</label>
+                        <input type="number" id="heightInches" name="heightInches" placeholder="e.g., 10"
+                            class="mt-1 p-3 input-group focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+                </div>
+
+                <button type="submit" id="calculateButton"
+                    class="bmi-button bg-blue-600 text-white hover:bg-blue-700 mx-auto inline-block">Calculate
+                    BMI</button>
+            </form>
 
 
-     function updateHeightFields() {
-         const unitSelect = document.getElementById('heightUnit');
-         const metricDiv = document.getElementById('metricHeight');
-         const imperialDiv = document.getElementById('imperialHeight');
+            <section id="resultSection" style="display:none;" class="space-y-4">
+                <div class="bg-green-50 p-4 rounded-md shadow-sm flex items-center space-x-2 text-gray-800">
+                    <i data-lucide="check-circle" class="w-6 h-6"></i>
+                    <p id="resultMessage">Your BMI is: 23.9</p>
+                </div>
 
-         if (unitSelect.value === 'meters') {
-             metricDiv.style.display = '';
-             imperialDiv.style.display = 'none';
-             document.querySelector('#heightMeters').focus();
-         } else if (unitSelect.value === 'feet-inches') {
-             metricDiv.style.display = 'none';
-             imperialDiv.style.display = '';
-             document.querySelector('#heightFeet').focus();
-         }
-     }
+                <div class="bg-blue-50 p-4 rounded-md shadow-sm text-gray-800">
+                    <h3 class="font-semibold mb-1">Interpretation:</h3>
+                    <ul id="interpretationList" class="list-disc pl-6"></ul>
+                </div>
 
-     updateHeightFields();
-
-      const unitSelector = document.getElementById('heightUnit');
-      unitSelector.addEventListener('change', function() { updateHeightFields(); });
+            </section>
 
 
-       const calculateButton = document.getElementById('calculateButton');
-       calculateButton.addEventListener('click', function(event) {
-           event.preventDefault();
-             calculateBMI();
-         });
+        </div>
+    </div>
+
+    <script type="module">
+
+        import { lucideCreate } from 'https://unpkg.com/lucide@latest';
+
+        const icons = ['arrow-left', 'check-circle'];
+
+        for (const icon of icons) {
+            lucideCreate(icon, {
+                target: document.querySelector(`[data-lucide="${icon}"]`),
+            });
+        }
+
+
+        function updateHeightFields() {
+            const unitSelect = document.getElementById('heightUnit');
+            const metricDiv = document.getElementById('metricHeight');
+            const imperialDiv = document.getElementById('imperialHeight');
+
+            if (unitSelect.value === 'meters') {
+                metricDiv.style.display = '';
+                imperialDiv.style.display = 'none';
+                document.querySelector('#heightMeters').focus();
+            } else if (unitSelect.value === 'feet-inches') {
+                metricDiv.style.display = 'none';
+                imperialDiv.style.display = '';
+                document.querySelector('#heightFeet').focus();
+            }
+        }
+
+        updateHeightFields();
+
+        const unitSelector = document.getElementById('heightUnit');
+        unitSelector.addEventListener('change', function () { updateHeightFields(); });
+
+
+        const calculateButton = document.getElementById('calculateButton');
+        calculateButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            calculateBMI();
+        });
 
         function getBMICategory(bmiValue) {
             if (bmiValue < 18.5) return 'Underweight';
@@ -165,50 +175,51 @@
             else if (bmiValue >= 30) return 'Obesity';
         }
 
-         function calculateBMI() {
-             const form = document.getElementById('bmiForm');
-             const weightKgInput = parseFloat(form.weightKg.value);
-             let heightInMeters;
+        function calculateBMI() {
+            const form = document.getElementById('bmiForm');
+            const weightKgInput = parseFloat(form.weightKg.value);
+            let heightInMeters;
 
-             if (form.heightUnit.value === 'meters') {
-                 heightInMeters = parseFloat(form.heightMeters.value);
-             } else if (form.heightUnit.value === 'feet-inches') {
+            if (form.heightUnit.value === 'meters') {
+                heightInMeters = parseFloat(form.heightMeters.value);
+            } else if (form.heightUnit.value === 'feet-inches') {
                 const feet = parseFloat(form.heightFeet.value) || 0;
                 const inches = parseFloat(form.heightInches.value) || 0;
                 heightInMeters = ((feet * 12 + inches) / 39.37);
-             }
+            }
 
             if (isNaN(weightKgInput) || isNaN(heightInMeters)) {
-                 alert('Please enter valid weight and height values.');
-                 return;
-             }
+                alert('Please enter valid weight and height values.');
+                return;
+            }
 
 
-              const bmiValue = weightKgInput / (heightInMeters * heightInMeters);
+            const bmiValue = weightKgInput / (heightInMeters * heightInMeters);
 
-               const resultMessageElement = document.getElementById('resultMessage');
-                const interpretationListElement = document.getElementById('interpretationList');
+            const resultMessageElement = document.getElementById('resultMessage');
+            const interpretationListElement = document.getElementById('interpretationList');
 
-                  let categoryDescription;
+            let categoryDescription;
 
-                   if (bmiValue < 18.5) {
-                       categoryDescription = 'You are considered underweight, which may indicate that you need to gain weight.';
-                    } else if (bmiValue >= 18.5 && bmiValue <= 24.9) {
-                        categoryDescription = 'Your BMI is in the healthy range for most adults. Well done!';
-                     } else if (bmiValue > 24.9 && bmiValue < 30) {
-                         categoryDescription = 'You are considered overweight, which may increase your risk of health problems.';
-                      } else if (bmiValue >= 30) {
-                          categoryDescription = 'Your BMI is in the obesity range, which increases your risk for serious diseases and conditions. Please consult a healthcare professional.' ;
-                       }
+            if (bmiValue < 18.5) {
+                categoryDescription = 'You are considered underweight, which may indicate that you need to gain weight.';
+            } else if (bmiValue >= 18.5 && bmiValue <= 24.9) {
+                categoryDescription = 'Your BMI is in the healthy range for most adults. Well done!';
+            } else if (bmiValue > 24.9 && bmiValue < 30) {
+                categoryDescription = 'You are considered overweight, which may increase your risk of health problems.';
+            } else if (bmiValue >= 30) {
+                categoryDescription = 'Your BMI is in the obesity range, which increases your risk for serious diseases and conditions. Please consult a healthcare professional.';
+            }
 
-                resultMessageElement.textContent = `Your BMI is: ${bmiValue.toFixed(1)}`;
-                 interpretationListElement.innerHTML = `
+            resultMessageElement.textContent = `Your BMI is: ${bmiValue.toFixed(1)}`;
+            interpretationListElement.innerHTML = `
                      <li>BMI Category: ${getBMICategory(bmiValue)}</li>
                       <li>${categoryDescription}</li>`;
 
-                    document.getElementById('resultSection').style.display = '';
-         }
-</script>
+            document.getElementById('resultSection').style.display = '';
+        }
+    </script>
 
 </body>
+
 </html>
