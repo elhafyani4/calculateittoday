@@ -4,37 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMI Calculator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.345.1/lucide.min.js"></script>
+    <title>BMI Calculator - Calculator Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
         }
 
-        .bmi-card {
-            border-radius: 2rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.1);
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            transition-duration: 300ms;
         }
 
-        .bmi-button {
-            transition-property: background-color, transform;
-            transition-duration: 150ms;
-            border-radius: 9999px;
-            padding-inline: 2rem;
-            font-weight: 600;
-            letter-spacing: -0.04em;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
+        @keyframes float {
 
-        .bmi-button:hover {
-            transform: scale(1.05);
-        }
+            0%,
+            100% {
+                transform: translatey(0px);
+            }
 
-        .input-group {
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        .hidden {
+            display: none;
+        }
+          .input-group {
             @apply relative rounded-lg border bg-white/70 backdrop-blur-sm;
         }
 
@@ -46,25 +44,34 @@
     </style>
 </head>
 
-<body class="bg-gray-100 text-gray-900">
+<body class="bg-gray-50 text-gray-900">
+    <nav class="fixed w-full top-0 z-30 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center font-bold text-xl text-blue-600">
+                <i class="fa-solid fa-calculator mr-2"></i> Calculator Hub
+            </a>
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="#finance" class="hover:text-blue-500 transition-colors"><i
+                            class="fa-solid fa-hand-holding-dollar mr-1"></i> Finance</a></li>
+                <li><a href="/fitness" class="hover:text-green-500 transition-colors"><i
+                            class="fa-solid fa-heart-pulse mr-1"></i> Fitness & Health</a></li>
+                <li><a href="#math" class="hover:text-yellow-500 transition-colors"><i
+                            class="fa-solid fa-square-root-variable mr-1"></i> Math</a></li>
+                <li><a href="#utility" class="hover:text-purple-500 transition-colors"><i
+                            class="fa-solid fa-tools mr-1"></i> Utility</a></li>
+            </ul>
+            <button class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
 
-    <div class="fixed top-4 left-4 md:left-6 lg:left-8 p-2 bg-white/75 backdrop-blur-sm rounded-full">
-        <a href="/" class="flex items-center space-x-2 hover:text-blue-600 transition-colors duration-300">
-            <i data-lucide="arrow-left" class="w-4 h-4"></i>
-            <span>Back</span>
-        </a>
-    </div>
-
-    <div class="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="bmi-card p-8 md:p-12 max-w-md w-full mx-auto space-y-8">
-
-            <header>
-                <h1 class="text-3xl font-bold text-center mb-4">BMI Calculator</h1>
-                <p class="text-gray-600 text-lg text-center">Calculate your Body Mass Index</p>
-            </header>
-
+    <div class="mt-24">
+        <h1 class="text-3xl font-bold mb-8 text-center">BMI Calculator</h1>
+        <div class="max-w-md mx-auto bg-white p-8 rounded-xl shadow-md space-y-6">
+           <p class="text-gray-600 text-lg text-center">Calculate your Body Mass Index</p>
             <form id="bmiForm" class="space-y-6">
-                <div class="grid grid-cols-2 gap-4 md:gap-8">
+                <div class="grid grid-cols-2 gap-4">
 
                     <div>
                         <label for="weightKg" class="block text-sm font-medium text-gray-700">Weight (kg)</label>
@@ -83,7 +90,7 @@
 
                 </div>
 
-                <div id="metricHeight" class="grid grid-cols-2 gap-4 md:gap-8">
+                <div id="metricHeight" class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="heightMeters" class="block text-sm font-medium text-gray-700">Height (m)</label>
                         <input type="number" step="any" id="heightMeters" name="heightMeters" placeholder="e.g., 1.8"
@@ -91,7 +98,7 @@
                     </div>
                 </div>
 
-                <div id="imperialHeight" style="display:none;" class="grid grid-cols-2 gap-4 md:gap-8">
+                <div id="imperialHeight" style="display:none;" class="grid grid-cols-2 gap-4">
                     <div>
                         <label for="heightFeet" class="block text-sm font-medium text-gray-700">Height (ft)</label>
                         <input type="number" id="heightFeet" name="heightFeet" placeholder="e.g., 5"
@@ -104,9 +111,9 @@
                     </div>
                 </div>
 
-                <button type="submit" id="calculateButton"
-                    class="bmi-button bg-blue-600 text-white hover:bg-blue-700 mx-auto inline-block">Calculate
-                    BMI</button>
+                <button type="button" id="calculateButton"
+                    class="w-full text-white mt-6 py-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center">
+                    Calculate BMI</button>
             </form>
 
 
@@ -122,22 +129,57 @@
                 </div>
 
             </section>
-
-
         </div>
     </div>
 
+
+
+   <footer class="bg-gray-900 text-white py-12 mt-24">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="text-xl font-semibold mb-4">About Us</h4>
+                <p class="text-gray-300">Welcome to the most comprehensive collection of calculators online. Our mission
+                    is to simplify complex calculations and provide users with tools for financial planning, health
+                    monitoring, math operations, and more.</p>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" onclick="showCalculator('investment')"
+                            class="hover:text-blue-500 transition-colors block py-1">Investment Calculator</a></li>
+                    <li><a href="#contact-section" class="hover:text-blue-500 transition-colors block py-1">Contact
+                            Us</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors block py-1">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors block py-1">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Contact Us</h4>
+                <p class="text-gray-300 mb-2"><i class="fa-solid fa-envelope mr-1"></i> contact@calculatorwebsite.com
+                </p>
+                <p class="text-gray-300"><i class="fa-solid fa-phone mr-1"></i> +1 (555) 123-4567</p>
+
+                <!-- Social Icons -->
+                <div class="flex space-x-4 mt-8 justify-center">
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-facebook-square text-white hover:text-blue-500 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-twitter-square text-white hover:text-sky-400 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-instagram-square text-white hover:text-pink-500 transition-colors"></i></a>
+                </div>
+            </div>
+
+        </div> <!-- Grid Container -->
+        <div class="mt-8 border-t border-gray-700 pt-4 text-center">
+            <p class="text-gray-400">© 2024 Calculator Website. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script type="module">
-
-        import { lucideCreate } from 'https://unpkg.com/lucide@latest';
-
-        const icons = ['arrow-left', 'check-circle'];
-
-        for (const icon of icons) {
-            lucideCreate(icon, {
-                target: document.querySelector(`[data-lucide="${icon}"]`),
-            });
-        }
+        import { lucide } from 'https://cdn.jsdelivr.net/npm/lucide@latest/+esm';
 
 
         function updateHeightFields() {
@@ -146,12 +188,12 @@
             const imperialDiv = document.getElementById('imperialHeight');
 
             if (unitSelect.value === 'meters') {
-                metricDiv.style.display = '';
-                imperialDiv.style.display = 'none';
+                metricDiv.classList.remove('hidden');
+                imperialDiv.classList.add('hidden');
                 document.querySelector('#heightMeters').focus();
             } else if (unitSelect.value === 'feet-inches') {
-                metricDiv.style.display = 'none';
-                imperialDiv.style.display = '';
+                metricDiv.classList.add('hidden');
+                imperialDiv.classList.remove('hidden');
                 document.querySelector('#heightFeet').focus();
             }
         }

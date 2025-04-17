@@ -1,173 +1,268 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
-    <title>Retirement Savings Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Savings Calculator - Calculator Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; }
-        .calculator-container {
-            max-width: 800px;
-            margin: auto;
-            padding: 2em;
-            border-radius: 1em;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            background-color: white;
-        }
-        h1 { text-align: center; color:#4CAF50;}
-        form div {
-            margin-bottom: 15px;
-        }
-        label {
-            display:block;
-            margin-bottom: 8px;
-            font-weight:bold;
-        }
-        input[type="number"], select, button {
-            width: 100%;
-            padding: .7em;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-        button { background-color:#4CAF50; color:white; cursor:pointer; }
-        button:hover { opacity:0.9; }
-        #result-section {
-            margin-top: 2em;
-            padding-top: 2em;
-            border-top: 1px dashed #ddd;
+        body {
+            font-family: 'Poppins', sans-serif;
         }
 
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            transition-duration: 300ms;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translatey(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        #results-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        #results-list li {
+            margin-bottom: 0.5em;
+        }
     </style>
 </head>
-<body>
 
-<div class="calculator-container">
-    <h1>Retirement Savings Calculator</h1>
-
-    <form id="retirementCalculatorForm" onsubmit="event.preventDefault(); calculateSavings()">
-        <div>
-            <label for="currentAge">Current Age:</label>
-            <input type="number" id="currentAge" placeholder="Enter your current age" required>
+<body class="bg-gray-50 text-gray-900">
+    <nav class="fixed w-full top-0 z-30 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center font-bold text-xl text-blue-600">
+                <i class="fa-solid fa-calculator mr-2"></i> Calculator Hub
+            </a>
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="#finance" class="hover:text-blue-500 transition-colors"><i
+                            class="fa-solid fa-hand-holding-dollar mr-1"></i> Finance</a></li>
+                <li><a href="/fitness" class="hover:text-green-500 transition-colors"><i
+                            class="fa-solid fa-heart-pulse mr-1"></i> Fitness & Health</a></li>
+                <li><a href="#math" class="hover:text-yellow-500 transition-colors"><i
+                            class="fa-solid fa-square-root-variable mr-1"></i> Math</a></li>
+                <li><a href="#utility" class="hover:text-purple-500 transition-colors"><i
+                            class="fa-solid fa-tools mr-1"></i> Utility</a></li>
+            </ul>
+            <button class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
-        <div>
-            <label for="desiredRetirementAge">Desired Retirement Age:</label>
-            <input type="number" id="desiredRetirementAge" placeholder="Enter your desired retirement age" required>
+    </nav>
+    <div class="mt-24">
+        <h1 class="text-3xl font-bold mb-8 text-center">Retirement Savings Calculator</h1>
+        <div class="max-w-4xl mx-auto bg-white p-8 rounded-xl shadow-md space-y-6">
+            <form id="retirementCalculatorForm" class="space-y-6">
+
+                <div>
+                    <label for="currentAge" class="block mb-2 text-sm font-medium text-gray-900">Current Age</label>
+                    <input type="number" id="currentAge" placeholder="Enter your current age"
+                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                        required>
+                </div>
+                <div>
+                    <label for="desiredRetirementAge" class="block mb-2 text-sm font-medium text-gray-900">Desired Retirement Age</label>
+                    <input type="number" id="desiredRetirementAge" placeholder="Enter your desired retirement age"
+                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                        required>
+                </div>
+                <div>
+                    <label for="monthlySalary" class="block mb-2 text-sm font-medium text-gray-900">Current Monthly Salary (USD)</label>
+                    <input type="number" id="monthlySalary" placeholder="Enter your current monthly salary"
+                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                           required>
+                </div>
+                <div>
+                    <label for="desiredAnnualIncome" class="block mb-2 text-sm font-medium text-gray-900">Desired Annual Income at Retirement (USD)</label>
+                    <input type="number" id="desiredAnnualIncome" placeholder="Enter your desired annual income at retirement"
+                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                           required>
+                </div>
+                <div>
+                    <label for="monthlySavings" class="block mb-2 text-sm font-medium text-gray-900">Monthly Savings (USD) <small>(Optional)</small></label>
+                    <input type="number" id="monthlySavings" placeholder="Enter your monthly savings (optional)"
+                           class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                </div>
+
+                <div>
+                    <label for="inflationRate"
+                        class="block mb-2 text-sm font-medium text-gray-900">Expected Average Inflation Rate (%) <i class="fas fa-info-circle" title="Annual percentage rate"></i>:</label>
+                    <select id="inflationRate"
+                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                        <option value="2.5">2.5% (Historical US average)</option>
+                        <option value="3">3%</option>
+                        <option value="4">4%</option>
+                        <option value="5">5%</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="returnRate"
+                        class="block mb-2 text-sm font-medium text-gray-900">Expected Average Return Rate (%) on Investments (Annualized) <i class="fas fa-info-circle" title="Average annual growth rate"></i>:</label>
+                    <select id="returnRate"
+                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                        <option value="6">6% (Stocks - Long Term)</option>
+                        <option value="7.5">7.5% (Balanced Portfolio)</option>
+                        <option value="9">9% (Riskier Stocks, Bonds & Real Estate)</option>
+                    </select>
+                </div>
+
+                <button type="button" id="calculateButton"
+                    class="w-full text-white mt-6 py-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center">
+                    <i class="fas fa-calculator"></i> Calculate Savings</button>
+            </form>
+
+            <div id="result-section" class="mt-12 hidden">
+                <h2 class="text-xl font-semibold mb-4">Calculation Results:</h2>
+                <ul id="results-list">
+                    <li><strong>Years to Retirement: </strong><span id="yearsToRetirement"></span></li>
+                    <li><strong>Total Required Savings at Retirement (Inflation Adjusted): </strong><span id="totalRequiredSavings"></span></li>
+                    <li><strong>Your Projected Total Savings by Retirement: </strong><span id="projectedTotalSavings"></span></li>
+                    <li><strong>Monthly Contribution Needed to Meet Goal: </strong><span id="monthlyContributionNeeded"></span></li>
+                </ul>
+            </div>
         </div>
-        <div>
-            <label for="monthlySalaryInput">Current Monthly Salary (USD):</label>
-            <input type="text" id="monthlySalaryInput" placeholder="$0.00" onkeyup="formatCurrency(this)" value="$0.00" autocomplete="off">
-        </div>
-        <div>
-            <label for="desiredAnnualIncomeRetirement">Desired Annual Income at Retirement (USD):</label>
-            <input type="text" id="desiredAnnualIncomeRetirement" placeholder="$0.00" onkeyup="formatCurrency(this)" value="$0.00" autocomplete="off">
-        </div>
-        <div>
-            <label for="monthlySavingsInput">Monthly Savings (USD) <small>(Optional)</small>:</label>
-            <input type="text" id="monthlySavingsInput" placeholder="$0.00" onkeyup="formatCurrency(this)" value="$0.00">
-        </div>
-
-        <div>
-            <label for="expectedInflationRate">Expected Average Inflation Rate (%) <i class="fas fa-info-circle" title="Annual percentage rate"></i>:</label>
-            <select id="expectedInflationRate">
-                <option value="2.5">2.5% (Historical US average)</option>
-                <option value="3">3%</option>
-                <option value="4">4%</option>
-                <option value="5">5%</option>
-            </select>
-        </div>
-
-        <div>
-            <label for="expectedReturnRate">Expected Average Return Rate (%) on Investments (Annualized) <i class="fas fa-info-circle" title="Average annual growth rate"></i>:</label>
-            <select id="expectedReturnRate">
-                <option value="6">6% (Stocks - Long Term)</option>
-                <option value="7.5">7.5% (Balanced Portfolio)</option>
-                <option value="9">9% (Riskier Stocks, Bonds & Real Estate)</option>
-            </select>
-        </div>
-
-         <button type="submit" class="calculate-button"><i class="fas fa-calculator"></i> Calculate Savings</button>
-    </form>
-
-    <div id="result-section">
-        <h2>Calculation Results:</h2>
-        <ul id="results-list">
-
-            <li><strong>Years to Retirement: </strong><span id="yearsToRetirement">0</span></li>
-            
-            <li><strong>Total Required Savings at Retirement (Inflation Adjusted): </strong><span id="totalRequiredSavings">$0.00</span></li>
-
-             <li><strong>Your Projected Total Savings by Retirement: </strong><span id="projectedTotalSavingsByRetirement">$0.00</span></li>
-             
-            <li><strong>Monthly Contribution Needed to Meet Goal (If Not Currently Saving): </strong><span id="monthlyContributionNeededForGoal">$0.00</span></li>
-
-        </ul>
     </div>
 
 
-<script>
-// Function to format currency as the user types
-function formatCurrency(input) {
-    let value = input.value.replace(/\D/g, '');
-    value = (value / 100).toLocaleString('en-US', {style: 'currency', currency: 'USD'});
-    input.value = value;
-}
+    <footer class="bg-gray-900 text-white py-12 mt-24">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="text-xl font-semibold mb-4">About Us</h4>
+                <p class="text-gray-300">Welcome to the most comprehensive collection of calculators online. Our mission
+                    is to simplify complex calculations and provide users with tools for financial planning, health
+                    monitoring, math operations, and more.</p>
+            </div>
 
-function calculateSavings() {
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" onclick="showCalculator('investment')"
+                            class="hover:text-blue-500 transition-colors block py-1">Investment Calculator</a></li>
+                    <li><a href="#contact-section" class="hover:text-blue-500 transition-colors block py-1">Contact
+                            Us</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors block py-1">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors block py-1">Terms of Service</a></li>
+                </ul>
+            </div>
 
-    const currentAgeInput = parseInt(document.getElementById('currentAge').value);
-    const desiredRetirementAgeInput = parseInt(document.getElementById('desiredRetirementAge').value);
-    let monthlySalaryStr = document.getElementById('monthlySalaryInput').value.replace(/[$,\s]/g,'');
-    let desiredAnnualIncomeStr = document.getElementById('desiredAnnualIncomeRetirement').value.replace(/[$,\s]/g,'');
-    let monthlySavingsContributionStr = (document.getElementById('monthlySavingsInput').value === "") ? "0" : document.getElementById('monthlySavingsInput').value.replace(/[$,\s]/g,'');
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Contact Us</h4>
+                <p class="text-gray-300 mb-2"><i class="fa-solid fa-envelope mr-1"></i> contact@calculatorwebsite.com
+                </p>
+                <p class="text-gray-300"><i class="fa-solid fa-phone mr-1"></i> +1 (555) 123-4567</p>
 
-    const expectedInflationRateSelect = document.getElementById('expectedInflationRate');
-    const expectedReturnRateSelect = document.getElementById('expectedReturnRate');
+                <!-- Social Icons -->
+                <div class="flex space-x-4 mt-8 justify-center">
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-facebook-square text-white hover:text-blue-500 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-twitter-square text-white hover:text-sky-400 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-instagram-square text-white hover:text-pink-500 transition-colors"></i></a>
+                </div>
+            </div>
 
+        </div> <!-- Grid Container -->
+        <div class="mt-8 border-t border-gray-700 pt-4 text-center">
+            <p class="text-gray-400">© 2024 Calculator Website. All rights reserved.</p>
+        </div>
+    </footer>
 
-    // Convert string values to numbers
-    let monthlySalary = parseFloat(monthlySalaryStr);
-    let desiredAnnualIncomeRetirement = parseFloat(desiredAnnualIncomeStr);
-    let monthlySavingsContribution = parseFloat(monthlySavingsContributionStr);
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
 
-    const expectedInflationRate = parseFloat(expectedInflationRateSelect.value);
-    const expectedReturnRate = parseFloat(expectedReturnRateSelect.value);
-
-
-     // Calculate years to retirement
-    const yearsToRetirement = desiredRetirementAgeInput - currentAgeInput;
-
-    let resultsList = document.getElementById('results-list');
-    resultsList.innerHTML = "";
-
-    if (isNaN(currentAgeInput) || isNaN(desiredRetirementAgeInput) || isNaN(monthlySalaryStr)
-        || isNaN(desiredAnnualIncomeStr)) {
-         alert("Please enter valid numerical values for all fields.");
-            return;
-     }
-
-      // Inflation Adjusted Desired Annual Income
-    let totalRequiredSavings = desiredAnnualIncomeRetirement / ((1 + expectedInflationRate/100)**yearsToRetirement);
-    resultsList.innerHTML += `<li><strong>Years to Retirement: </strong>${yearsToRetirement} years</li>`;
-    resultsList.innerHTML += `<li><strong>Total Required Savings at Retirement (in current year's dollars): </strong>$${desiredAnnualIncomeRetirement.toLocaleString()}</li>`;
-    resultsList.innerHTML += `<li><strong>Total Required Savings at Retirement (Inflation Adjusted to Retirement Year): </strong>${totalRequiredSavings.toLocaleString(undefined, { minimumFractionDigits: 2 })}</li>`;
-
-     // Projected Total Savings by Retirement
-    let projectedTotalSavingsByRetirement = monthlySavingsContribution * yearsToRetirement * 12;
-    resultsList.innerHTML += `<li><strong>Your Projected Total Savings by Retirement (From Current Contributions): </strong>$${projectedTotalSavingsByRetirement.toLocaleString()}</li>`;
-
-     // Monthly Contribution Needed to Meet Goal
-    let monthlyContributionNeededForGoal = ((totalRequiredSavings - projectedTotalSavingsByRetirement) / (yearsToRetirement * 12));
-    resultsList.innerHTML += `<li><strong>Monthly Contribution Needed to Meet Retirement Savings Goal: </strong>$${monthlyContributionNeededForGoal.toLocaleString(undefined, { minimumFractionDigits: 2 })}</li>`;
+            const calculateButton = document.getElementById('calculateButton');
+            const resultSection = document.getElementById('result-section');
+            const resultsList = document.getElementById('results-list');
 
 
-     // Display Results
-     document.getElementById('results-list').style.display = 'block';
+            calculateButton.addEventListener('click', calculateSavings);
+
+
+            function calculateSavings() {
+
+                // Get Input Values
+                const currentAge = parseFloat(document.getElementById('currentAge').value);
+                const retirementAge = parseFloat(document.getElementById('desiredRetirementAge').value);
+                const monthlySalary = parseFloat(document.getElementById('monthlySalary').value);
+                const desiredAnnualIncome = parseFloat(document.getElementById('desiredAnnualIncome').value);
+                const monthlySavings = parseFloat(document.getElementById('monthlySavings').value) || 0; // Default to 0 if empty
+                const inflationRate = parseFloat(document.getElementById('inflationRate').value) / 100; // Convert to decimal
+                const returnRate = parseFloat(document.getElementById('returnRate').value) / 100; // Convert to decimal
 
 
 
-}
-</script>
+                // Validate Inputs
+                if (isNaN(currentAge) || isNaN(retirementAge) || isNaN(monthlySalary) || isNaN(desiredAnnualIncome)) {
+                    alert('Please enter valid numbers for all required fields.');
+                    return;
+                }
 
-</div>
+                if (retirementAge <= currentAge) {
+                    alert('Retirement age must be greater than current age.');
+                    return;
+                }
+
+
+                // Perform Calculations
+                const yearsToRetirement = retirementAge - currentAge;
+                const futureValueFactor = Math.pow(1 + inflationRate, yearsToRetirement);
+                const adjustedDesiredAnnualIncome = desiredAnnualIncome * futureValueFactor;
+                const totalRequiredSavings = adjustedDesiredAnnualIncome / returnRate; // Simplified approach
+                const projectedSavings = monthlySavings * 12 * yearsToRetirement;
+
+
+              let monthlyContributionNeeded;
+
+                if (returnRate === 0) {
+                    // Handle the case where the return rate is zero to avoid division by zero or infinity
+                    monthlyContributionNeeded = (totalRequiredSavings - projectedSavings) / (yearsToRetirement * 12);
+                } else {
+                    // Compound interest formula for future value of series
+                    monthlyContributionNeeded = (totalRequiredSavings - (monthlySavings * ((Math.pow(1 + returnRate / 12, yearsToRetirement * 12) - 1) / (returnRate / 12)))) /
+                                                ((Math.pow(1 + returnRate / 12, yearsToRetirement * 12) - 1) / (returnRate / 12));
+                }
+
+                if (monthlyContributionNeeded < 0) {
+                    monthlyContributionNeeded = 0; // Avoid negative contributions
+                }
+
+                // Update Result Display
+                document.getElementById('yearsToRetirement').textContent = yearsToRetirement.toFixed(0);
+                document.getElementById('totalRequiredSavings').textContent = formatAsCurrency(totalRequiredSavings);
+                document.getElementById('projectedTotalSavings').textContent = formatAsCurrency(projectedSavings);
+                document.getElementById('monthlyContributionNeeded').textContent = formatAsCurrency(monthlyContributionNeeded);
+
+
+                resultSection.classList.remove('hidden'); // Use Tailwind's class
+            }
+
+
+            function formatAsCurrency(amount) {
+                return new Intl.NumberFormat('en-US', {
+                    style: 'currency',
+                    currency: 'USD'
+                }).format(amount);
+            }
+
+
+        });
+    </script>
+
+
 </body>
+
 </html>

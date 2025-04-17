@@ -1,88 +1,99 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMR Calculator - Your Daily Energy Needs</title>
+    <title>BMR Calculator - Calculator Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f3f2ef;
-            color: #1e293b;
         }
-        .calculator-container {
-            background: linear-gradient(135deg, #ffffff, #e0f7fa);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.08);
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+            transition-duration: 300ms;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translatey(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        .hidden {
+            display: none;
         }
         .result-card {
             background-color: white;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        button.calc-button:hover {
-            transform: scale(1.05);
-            transition-duration: 300ms;
+          .input-group {
+            @apply relative rounded-lg border bg-white/70 backdrop-blur-sm;
+        }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
         }
     </style>
 </head>
-<body class="bg-gray-50">
 
-<header class="sticky top-0 z-50 bg-white shadow-md">
-    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-        <div class="text-xl font-bold text-blue-700">BMR Calculator</div>
-        <ul class="hidden md:flex space-x-8 text-gray-700">
-            <li><a href="#calculator" class="hover:text-blue-500 transition-colors">Calculator</a></li>
-            <li><a href="#about" class="hover:text-blue-500 transition-colors">About BMR</a></li>
-        </ul>
-        <div class="md:hidden">
-            <button id="mobile-menu-button" class="text-gray-700 hover:text-blue-500 focus:outline-none">
-                <i data-lucide="menu" class="w-6 h-6"></i>
+<body class="bg-gray-50 text-gray-900">
+    <nav class="fixed w-full top-0 z-30 bg-white/90 backdrop-blur-md shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center font-bold text-xl text-blue-600">
+                <i class="fa-solid fa-calculator mr-2"></i> Calculator Hub
+            </a>
+            <ul class="hidden md:flex space-x-8 items-center">
+                <li><a href="#finance" class="hover:text-blue-500 transition-colors"><i
+                            class="fa-solid fa-hand-holding-dollar mr-1"></i> Finance</a></li>
+                <li><a href="/fitness" class="hover:text-green-500 transition-colors"><i
+                            class="fa-solid fa-heart-pulse mr-1"></i> Fitness & Health</a></li>
+                <li><a href="#math" class="hover:text-yellow-500 transition-colors"><i
+                            class="fa-solid fa-square-root-variable mr-1"></i> Math</a></li>
+                <li><a href="#utility" class="hover:text-purple-500 transition-colors"><i
+                            class="fa-solid fa-tools mr-1"></i> Utility</a></li>
+            </ul>
+            <button class="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </nav>
 
-     <div class="md:hidden hidden" id="mobile-menu">
-         <ul class="px-2 py-4 flex flex-col space-y-3 text-gray-700">
-             <li><a href="#calculator" class="block px-4 py-2 hover:bg-gray-100 rounded-md">Calculator</a></li>
-             <li><a href="#about" class="block px-4 py-2 hover:bg-gray-100 rounded-md">About BMR</a></li>
-         </ul>
-     </div>
-
-</header>
-
-
-<main class="container mx-auto mt-8 md:mt-16">
-    <section id="hero" class="mb-16 text-center px-4">
-        <h1 class="text-3xl sm:text-5xl font-bold text-blue-900 mb-4">Calculate Your Basal Metabolic Rate</h1>
-        <p class="text-lg text-gray-700 max-w-xl mx-auto">Effortlessly determine your daily energy expenditure with our intuitive BMR calculator. Understand your body's needs for optimal health and fitness.</p>
-    </section>
-
-    <section id="calculator" class="mb-24 px-6">
-        <div class="max-w-lg mx-auto bg-white rounded-xl shadow-md overflow-hidden calculator-container p-8 md:p-10">
-
-            <h2 class="text-2xl font-semibold text-gray-900 mb-8">BMR Calculation Form</h2>
-
-             <form id="bmr-form">
-                <div class="mb-4">
+    <div class="mt-24">
+        <h1 class="text-3xl font-bold mb-4 text-center">BMR Calculator</h1>
+        <p class="text-lg text-gray-700 max-w-xl mx-auto text-center mb-8">Effortlessly determine your daily energy expenditure with our intuitive BMR calculator. Understand your body's needs for optimal health and fitness.</p>
+        <div class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-md space-y-6">
+            <form id="bmr-form" class="space-y-6">
+                <div>
                     <label for="age" class="block text-sm font-medium text-gray-700 mb-1">Age (years)</label>
                     <input type="number" id="age" name="age" placeholder="Your Age" required min="1"
                         class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
 
-                <div class="mb-4">
+                <div>
                     <label for="weight" class="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label>
                     <input type="number" id="weight" name="weight" placeholder="Your Weight in kg" required min="1"
                         class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
 
-                 <div class="mb-6">
+                 <div>
                     <label for="height" class="block text-sm font-medium text-gray-700 mb-1">Height (cm)</label>
                     <input type="number" id="height" name="height" placeholder="Your Height in cm" required min="1"
                         class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
 
-                 <div class="mb-6">
+                 <div>
                     <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
                      <select id="gender" name="gender"
                         class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
@@ -92,17 +103,17 @@
                     </select>
                 </div>
 
-                 <button type="submit" class="calc-button bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full w-full transition-colors duration-300">
+                 <button type="button" id="calculateButton" class="w-full text-white mt-6 py-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center">
                      Calculate BMR
                  </button>
             </form>
 
 
-             <div id="result-section" class="hidden mt-12 p-6 result-card rounded-lg">
+             <div id="result-section" class="hidden mt-8 p-6 result-card rounded-lg">
                 <h3 class="text-xl font-semibold text-gray-900 mb-4">Your Basal Metabolic Rate</h3>
 
                 <p id="bmr-result-text" class="text-lg text-blue-800 font-bold"></p>
-                 <div id="result-details-section" class="mt-6">
+                 <div id="result-details-section" class="mt-4">
                      <ul class="space-y-2">
                         <li><span class="font-semibold">BMR:</span> <span id="calculated-bmr">----</span></li>
                          <li><span class="font-semibold">Daily Caloric Needs (Approx):</span> <span id="daily-calories">----</span> calories/day</li>
@@ -115,14 +126,11 @@
                  </div>
 
              </div>
-
-
         </div>
-    </section>
 
-     <section id="about" class="mb-16 px-4">
-         <h2 class="text-2xl font-semibold text-gray-900 mb-8">What is Basal Metabolic Rate (BMR)?</h2>
-          <p class="text-lg text-gray-700 mb-6">
+        <section id="about" class="mt-12 px-4">
+         <h2 class="text-2xl font-semibold text-gray-900 mb-4">What is Basal Metabolic Rate (BMR)?</h2>
+          <p class="text-lg text-gray-700 mb-4">
              Your BMR, or Basal Metabolic Rate, is the number of calories your body burns at rest to maintain essential functions like breathing,
               circulation, and cell production. It's a crucial metric for understanding energy requirements and planning healthy diets.
           </p>
@@ -132,76 +140,99 @@
                  <li>Your BMR can vary due to factors like genetics, muscle mass, and hormonal changes.</li>
            </ul>
 
-             <p class="mt-6 text-gray-700">
+             <p class="mt-4 text-gray-700">
                Use our calculator above to find your own BMR and better understand your daily energy needs. This knowledge is the first step towards achieving
                 balanced nutrition and improved health.
             </p>
     </section>
+    </div>
+
+   <footer class="bg-gray-900 text-white py-12 mt-24">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="text-xl font-semibold mb-4">About Us</h4>
+                <p class="text-gray-300">Welcome to the most comprehensive collection of calculators online. Our mission
+                    is to simplify complex calculations and provide users with tools for financial planning, health
+                    monitoring, math operations, and more.</p>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" onclick="showCalculator('investment')"
+                            class="hover:text-blue-500 transition-colors block py-1">Investment Calculator</a></li>
+                    <li><a href="#contact-section" class="hover:text-blue-500 transition-colors block py-1">Contact
+                            Us</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors block py-1">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-blue-500 transition-colors block py-1">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Contact Us</h4>
+                <p class="text-gray-300 mb-2"><i class="fa-solid fa-envelope mr-1"></i> contact@calculatorwebsite.com
+                </p>
+                <p class="text-gray-300"><i class="fa-solid fa-phone mr-1"></i> +1 (555) 123-4567</p>
+
+                <!-- Social Icons -->
+                <div class="flex space-x-4 mt-8 justify-center">
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-facebook-square text-white hover:text-blue-500 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-twitter-square text-white hover:text-sky-400 transition-colors"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i
+                            class="fa-brands fa-instagram-square text-white hover:text-pink-500 transition-colors"></i></a>
+                </div>
+            </div>
+
+        </div> <!-- Grid Container -->
+        <div class="mt-8 border-t border-gray-700 pt-4 text-center">
+            <p class="text-gray-400">© 2024 Calculator Website. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('#bmr-form');
+        const resultSection = document.getElementById('result-section');
+        const bmrResultText = document.getElementById('bmr-result-text');
+        const calculatedBMRField = document.getElementById('calculated-bmr');
+        const dailyCaloriesField = document.getElementById('daily-calories');
+        const calculateButton = document.getElementById('calculateButton');
 
 
-</main>
+        calculateButton.addEventListener('click', function(event) {
+            event.preventDefault();
 
-<footer class="bg-blue-100 py-8 text-center">
-     <p>&copy; 2024 Your Company Name. All rights reserved.</p>
-</footer>
+            const age = parseFloat(document.getElementById('age').value);
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            const gender = document.getElementById('gender').value;
 
-<script src="//unpkg.com/@tailwindcss/browser@3"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('#bmr-form');
-    const resultSection = document.getElementById('result-section');
-    const bmrResultText = document.getElementById('bmr-result-text');
-     const calculatedBMRField = document.getElementById('calculated-bmr');
-      const dailyCaloriesField = document.getElementById('daily-calories');
+            if (isNaN(age) || isNaN(weight) || isNaN(height) || gender === "") {
+                alert("Please enter valid numbers for age, weight, height, and select a gender.");
+                return;
+            }
 
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
+            let bmrValue = 0;
+            let dailyCaloriesValue = 0;
 
-        const age = parseFloat(document.getElementById('age').value);
-        const weight = parseFloat(document.getElementById('weight').value);
-        const height = parseFloat(document.getElementById('height').value);
-         const gender = document.getElementById('gender').value;
-
-          if (isNaN(age) || isNaN(weight) || isNaN(height)) {
-            alert("Please enter valid numbers for age, weight, and height.");
-             return;
-        }
-
-        let bmrValue = 0;
-        let dailyCaloriesValue = 0;
-
-         if (gender === "male") {
-              bmrValue = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+            if (gender === "male") {
+                bmrValue = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
             } else if (gender === "female") {
                 bmrValue = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
             }
 
-             dailyCaloriesValue = bmrValue * 1.2; // Sedentary lifestyle, minor activity
+                dailyCaloriesValue = bmrValue * 1.2; // Sedentary lifestyle, minor activity
 
 
-         calculatedBMRField.textContent = Math.round(bmrValue);
-          dailyCaloriesField.textContent = Math.round(dailyCaloriesValue);
+            calculatedBMRField.textContent = Math.round(bmrValue);
+            dailyCaloriesField.textContent = Math.round(dailyCaloriesValue) + " calories/day";
 
-        resultSection.classList.remove('hidden');
+            resultSection.classList.remove('hidden');
+        });
     });
+    </script>
+</body>
 
-
-
-     const mobileMenuButton = document.querySelector('#mobile-menu-button');
-      const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
-
-       if (mobileMenuButton) {
-            mobileMenuButton.addEventListener('click', function() {
-                document.body.classList.toggle('menu-open');
-            });
-
-             for (const item of mobileMenuItems) {
-                 item.addEventListener('click', function() {
-                     document.body.classList.remove('menu-open');
-                 });
-             }
-        }
-
-
-});
-</script>
+</html>

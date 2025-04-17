@@ -13,7 +13,12 @@ export const mapFinancialRoutes = function(app) {
         '/finance/mortgage-calculator': '../public/finance/mortgage_calculator.html',
         '/finance/compound-interest-calculator': '../public/finance/coumpound_interest.html',
         '/finance/retirement-calculator': '../public/finance/retirement_calculator.html',
-        '/finance/currency-converter': '../public/finance/currency_converter.html'
+        '/finance/currency-converter': '../public/finance/currency_converter.html',
+        '/finance/commission-calculator': '../public/finance/commission_calculator.html',
+        '/finance/appreciation-calculator': '../public/finance/appreciation_calculator.html',
+        '/finance/rental-property-calculator': '../public/finance/rental_property_calculator.html',
+        '/finance/sales-tax-calculator': '../public/finance/sales_tax_calculator.html',
+
     };
 
     mapRoutes(routes, app);
